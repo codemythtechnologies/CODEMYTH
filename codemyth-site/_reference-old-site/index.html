@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Myth Technologies — Building legendary code for the modern web</title>
+    <meta name="description" content="Remote IT services company delivering full stack web apps, AI-powered solutions, and custom software — fast, clean, production-ready." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- EmailJS (non-module) -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+    <div class="page-shell">
+
+        <div class="toast-wrap" id="toastWrap"></div>
+
+        <!-- ============ NAV ============ -->
+        <nav class="nav" id="siteNav">
+            <a href="#home" class="brand">
+                <!-- NEW IBM-STYLE LOGO -->
+                <img src="logo.png" alt="Code Myth Technologies" class="brand-mark" style="width: 60px; height: 60px; object-fit:contain;" />
+                <div class="brand-lockup">
+                    <div class="brand-line1"><span class="b-code">CODE</span><span class="b-myth">MYTH</span></div>
+                    <div class="brand-line2">TECHNOLOGIES</div>
+                </div>
+            </a>
+            <div class="nav-center">
+                <div class="nav-drop" data-drop>
+                    <a href="#services" class="nav-drop-trigger" onclick="scrollToSection('services');return false;">Services
+                        <svg class="nav-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </a>
+                    <div class="nav-dropdown">
+                        <button class="nav-drop-item" onclick="openServiceDetail('fullstack')"><b>Full stack development</b><small>MERN web apps, built and deployed by us</small></button>
+                        <button class="nav-drop-item" onclick="openServiceDetail('ai')"><b>AI integration</b><small>LLM assistants, chatbots &amp; automation</small></button>
+                        <button class="nav-drop-item" onclick="openServiceDetail('landing')"><b>Landing pages</b><small>Fast, responsive, high-converting sites</small></button>
+                        <button class="nav-drop-item" onclick="openServiceDetail('api')"><b>API development</b><small>Scalable backends &amp; REST APIs</small></button>
+                    </div>
+                </div>
+                <div class="nav-drop" data-drop>
+                    <a href="#ai-era" class="nav-drop-trigger" onclick="scrollToSection('ai-era');return false;">The AI Era
+                        <svg class="nav-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    </a>
+                    <div class="nav-dropdown">
+                        <button class="nav-drop-item" onclick="openAiEraDetail('pipeline')"><b>Delivery pipeline</b><small>How AI moves work from generate to ship</small></button>
+                        <button class="nav-drop-item" onclick="openAiEraDetail('metrics')"><b>Speed &amp; quality metrics</b><small>Time-to-production and defect capture rate</small></button>
+                        <button class="nav-drop-item" onclick="openAiEraDetail('principles')"><b>Our AI principles</b><small>Where we use AI — and where we don't</small></button>
+                    </div>
+                </div>
+                <a href="#business-analysis" onclick="scrollToSection('business-analysis');return false;">Discovery</a>
+                <a href="#approach" onclick="scrollToSection('approach');return false;">Approach</a>
+                <a href="#work" onclick="scrollToSection('work');return false;">Work</a>
+                <a href="#team" onclick="scrollToSection('team');return false;">Team</a>
+                <a href="#contact" onclick="scrollToSection('contact');return false;">Contact</a>
+            </div>
+            <div class="nav-right">
+                <!-- Shown when logged OUT -->
+                <a href="signin.html" class="nav-signin" id="navSignInLink">Sign in</a>
+
+                <!-- Shown when logged IN — hidden by default, shown by JS -->
+                <div class="profile-wrap" id="profileWrap">
+                    <button class="profile-avatar" id="profileAvatar" aria-label="Account menu" aria-haspopup="true" aria-expanded="false">
+                        <span id="profileInitial">?</span>
+                    </button>
+                    <div class="profile-menu" id="profileMenu" role="menu">
+                        <div class="profile-info">
+                            <div class="profile-info-avatar" id="profileInfoAvatar">?</div>
+                            <div class="profile-info-text">
+                                <div class="profile-info-name" id="profileInfoName">Loading...</div>
+                                <div class="profile-info-email" id="profileInfoEmail">Loading...</div>
+                            </div>
+                        </div>
+                        <button class="profile-menu-item" onclick="window.openPrivacy()" role="menuitem">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z"/></svg>
+                            Privacy &amp; data
+                        </button>
+                        <button class="profile-menu-item" onclick="window.openTerms()" role="menuitem">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                            Terms &amp; Conditions
+                        </button>
+                        <div class="profile-menu-divider"></div>
+                        <button class="profile-menu-item danger" onclick="window.confirmDeleteAccount()" role="menuitem">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                            Delete account
+                        </button>
+                        <button class="profile-menu-item danger" onclick="window.signOutUser()" role="menuitem">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                            Log out
+                        </button>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="scrollToSection('contact')">Hire us</button>
+                <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+            </div>
+        </nav>
+
+        <!-- ============ TERMS & CONDITIONS MODAL ============ -->
+        <div class="modal-overlay" id="termsModal" role="dialog" aria-modal="true" aria-labelledby="termsModalTitle">
+            <div class="modal-box">
+                <div class="modal-head">
+                    <h3 id="termsModalTitle">Terms &amp; Conditions</h3>
+                    <button class="modal-close" onclick="window.closeTerms()" aria-label="Close">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>1. Acceptance of Terms</h4>
+                    <p>By accessing or using the Code Myth Technologies website and client portal, you agree to be bound by these Terms and Conditions. If you do not agree to these terms, please do not use our services.</p>
+
+                    <h4>2. Use of Services</h4>
+                    <p>Our services are intended for business and professional use. You agree to use Code Myth Technologies services only for lawful purposes and in a manner that does not infringe the rights of others or restrict their use of the platform. You must not misuse or attempt to gain unauthorised access to any part of our systems.</p>
+
+                    <h4>3. Account Responsibility</h4>
+                    <p>You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to notify us immediately of any unauthorised use of your account. Code Myth Technologies will not be liable for any loss resulting from unauthorised use of your account.</p>
+
+                    <h4>4. Intellectual Property</h4>
+                    <p>All content on this website — including text, graphics, logos, code, and design — is the intellectual property of Code Myth Technologies and is protected under applicable copyright and trademark law. You may not reproduce, distribute, or create derivative works without our prior written consent.</p>
+
+                    <h4>5. Project Work & Deliverables</h4>
+                    <p>Work delivered under a client agreement is governed by the individual project contract signed between Code Myth Technologies and the client. Ownership of deliverables transfers to the client only upon receipt of full payment as specified in the project agreement.</p>
+
+                    <h4>6. Limitation of Liability</h4>
+                    <p>Code Myth Technologies shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of, or inability to use, our services. Our total liability in any matter arising out of or related to these terms shall not exceed the fees paid by you in the three months preceding the claim.</p>
+
+                    <h4 id="terms-data-section">7. Your Data</h4>
+                    <p>When you create an account, we collect your name, email address, and profile information to provide our services. This data is stored securely in Firebase (Google) infrastructure. We do not sell your personal data to third parties. You may request deletion of your account and associated data at any time using the "Delete account" option in your profile menu.</p>
+
+                    <h4>8. Termination</h4>
+                    <p>We reserve the right to suspend or terminate your account access if you violate these terms or engage in conduct we determine to be harmful to other users or our business. You may terminate your account at any time using the account deletion option in your profile.</p>
+
+                    <h4>9. Changes to Terms</h4>
+                    <p>We may update these Terms and Conditions from time to time. Continued use of our services after any changes constitutes your acceptance of the revised terms. We will make reasonable efforts to notify registered users of significant changes.</p>
+
+                    <h4>10. Governing Law</h4>
+                    <p>These Terms and Conditions are governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of the courts in Chennai, Tamil Nadu, India.</p>
+
+                    <h4>11. Contact</h4>
+                    <p>For any questions about these terms, please contact us at codemyth.technologies@gmail.com or through the contact form on our website. MSME Registration: UDYAM-PY-03-0057608.</p>
+                </div>
+                <div class="modal-foot">
+                    <button onclick="window.closeTerms()">Got it, close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ DELETE ACCOUNT CONFIRM ============ -->
+        <div class="confirm-overlay" id="deleteConfirm" role="alertdialog" aria-modal="true">
+            <div class="confirm-box">
+                <div class="confirm-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+                <h3>Delete your account?</h3>
+                <p>This will permanently delete your account and all associated data from our database. This action cannot be undone. Your project history and profile will be removed immediately.</p>
+                <div class="confirm-btns">
+                    <button class="confirm-cancel" onclick="window.closeDeleteConfirm()">Cancel</button>
+                    <button class="confirm-delete" id="confirmDeleteBtn" onclick="window.deleteAccountConfirmed()">
+                        Delete account
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ BA CONSULTATION REQUEST MODAL ============ -->
+        <div class="modal-overlay ba-consult-overlay" id="baConsultModal" role="dialog" aria-modal="true" aria-labelledby="baConsultModalTitle">
+            <div class="modal-box ba-consult-box">
+                <div class="modal-head">
+                    <h3 id="baConsultModalTitle">Consultation Request</h3>
+                    <button class="modal-close" onclick="window.closeBAConsult()" aria-label="Close">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Tell us about your project and a Business Analyst from our team will get back to you within 24 hours.</p>
+                    <form id="baConsultForm" novalidate>
+                        <div class="field-row">
+                            <div class="field" id="ba-field-name">
+                                <label for="ba-name">Your name</label>
+                                <input type="text" id="ba-name" name="name" placeholder="Ada Lovelace" autocomplete="name" required>
+                                <div class="field-err">Please enter your name</div>
+                            </div>
+                            <div class="field" id="ba-field-email">
+                                <label for="ba-email">Work email</label>
+                                <input type="email" id="ba-email" name="email" placeholder="you@company.com" autocomplete="email" required>
+                                <div class="field-err">Enter a valid email</div>
+                            </div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field" id="ba-field-company">
+                                <label for="ba-company">Company (optional)</label>
+                                <input type="text" id="ba-company" name="company" placeholder="Company name" autocomplete="organization">
+                            </div>
+                            <div class="field" id="ba-field-phone">
+                                <label for="ba-phone">Phone (optional)</label>
+                                <input type="tel" id="ba-phone" name="phone" placeholder="+1 555 000 0000" autocomplete="tel">
+                            </div>
+                        </div>
+                        <div class="field" id="ba-field-need">
+                            <label for="ba-need">What do you need help with?</label>
+                            <select id="ba-need" name="need">
+                                <option value="URS / FRS / PQ / IQ documentation">Documentation</option>
+                                <option value="Agile delivery & sprint planning">Agile delivery &amp; sprint planning</option>
+                                <option value="Dashboarding & reporting">Dashboarding &amp; reporting</option>
+                                <option value="SAP integration & process mapping">SAP integration &amp; process mapping</option>
+                                <option value="Something else">Others</option>
+                            </select>
+                        </div>
+                        <div class="field" id="ba-field-message">
+                            <label for="ba-message">Project details</label>
+                            <textarea id="ba-message" name="message" maxlength="500" required placeholder="What are you working on, and what's the timeline?"></textarea>
+                            <div class="char-count"><span id="baCharCount">0</span>/500</div>
+                            <div class="field-err">Please add a few details (min 10 characters)</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-foot">
+                    <button type="submit" form="baConsultForm" id="baConsultSubmit">
+                        <span id="baConsultSubmitLabel">Request consultation</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ APPROACH STEP DETAIL MODAL ============ -->
+        <div class="modal-overlay step-modal-overlay" id="stepModal" role="dialog" aria-modal="true" aria-labelledby="stepModalTitle">
+            <div class="modal-box step-modal-box">
+                <div class="modal-head">
+                    <h3 id="stepModalTitle"><span class="step-modal-num-badge" id="stepModalNum">01</span><span id="stepModalTitleText">Scope</span></h3>
+                    <button class="modal-close" onclick="window.closeStepModal()" aria-label="Close">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+                <div class="modal-body" id="stepModalBody">
+                    <div class="tab-panel active" data-step-content="0">
+                        <p>We start with a free call to understand your goals, users, and constraints, then scope the project into a clear, fixed plan before any code is written. You'll get a written proposal covering deliverables, tech choices, timeline, and price — no surprises once work begins.</p>
+                        <div class="mock-checklist">
+                            <div class="mock-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Requirements call scheduled</div>
+                            <div class="mock-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Scope &amp; timeline drafted</div>
+                            <div class="mock-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Fixed-price quote sent</div>
+                            <div class="mock-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Tech stack &amp; architecture agreed upfront</div>
+                        </div>
+                        <p style="margin-top:18px;font-size:12px;color:var(--text-muted);">We also share past work and client references during this phase so you know exactly who you're working with.</p>
+                    </div>
+                    <div class="tab-panel" data-step-content="1">
+                        <p>Development happens in short weekly cycles. You get a staging link from day one so you can watch the product take shape in real time, leave feedback inline, and reprioritize what gets built next without waiting for a big reveal at the end.</p>
+                        <div class="mock">
+                            <div class="ln"><span class="no">1</span><span class="k">import</span>&nbsp;{ Router } <span class="k">from</span> <span class="s">'express'</span></div>
+                            <div class="ln"><span class="no">2</span><span class="c">// weekly build — cycle 03</span></div>
+                            <div class="ln"><span class="no">3</span><span class="k">router</span>.<span class="k">post</span>(<span class="s">'/api/deploy'</span>, handler)</div>
+                            <div class="ln"><span class="no">4</span><span class="c">✓ staging.codemyth.dev updated</span></div>
+                        </div>
+                        <div class="mock-checklist" style="margin-top:14px">
+                            <div class="mock-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Weekly demo call + async Slack updates</div>
+                            <div class="mock-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Git history &amp; commits visible to you throughout</div>
+                        </div>
+                        <p style="margin-top:18px;font-size:12px;color:var(--text-muted);">You can also request a dedicated Discord or Slack channel for real-time updates and file sharing.</p>
+                    </div>
+                    <div class="tab-panel" data-step-content="2">
+                        <p>Before anything reaches you, it goes through AI-generated test cases for edge conditions, automated regression checks, and a manual QA pass across real devices and browsers. Every AI-touched line is also read and signed off by a human engineer — nothing ships on autopilot.</p>
+                        <div class="mock-checklist">
+                            <div class="mock-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>AI-generated edge-case test suite</div>
+                            <div class="mock-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Cross-device &amp; cross-browser QA pass</div>
+                            <div class="mock-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Manual review of every AI-touched line</div>
+                            <div class="mock-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Performance &amp; accessibility audit before sign-off</div>
+                        </div>
+                        <p style="margin-top:18px;font-size:12px;color:var(--text-muted);">We also run a security scan and dependency audit so you're not inheriting any hidden vulnerabilities.</p>
+                    </div>
+                    <div class="tab-panel" data-step-content="3">
+                        <p>We deploy to production, connect your domain, and run a final smoke test before handing over the keys. You leave this stage with a live URL, full source access, and a short handover doc explaining how everything fits together.</p>
+                        <div class="mock-metrics">
+                            <div class="mock-metric"><b>99.9<span style="font-size:12px">%</span></b><span>UPTIME TARGET</span></div>
+                            <div class="mock-metric"><b>&lt;200<span style="font-size:12px">ms</span></b><span>AVG RESPONSE</span></div>
+                            <div class="mock-metric"><b>A+</b><span>SECURITY GRADE</span></div>
+                        </div>
+                        <p style="margin-top:18px;font-size:12px;color:var(--text-muted);">We also set up uptime monitoring and alerts so you're notified immediately if anything goes wrong post-launch.</p>
+                    </div>
+                    <div class="tab-panel" data-step-content="4">
+                        <p>Every project ships with a support window for bug fixes, and we're happy to stay on for ongoing feature work after launch. Most clients move to a light monthly retainer once the initial build is stable, so there's always someone who already knows the codebase on call.</p>
+                        <div class="mock-checklist">
+                            <div class="mock-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>30-day bug-fix window included</div>
+                            <div class="mock-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Direct Slack/email access to your team</div>
+                            <div class="mock-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Optional monthly retainer for upkeep</div>
+                            <div class="mock-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Uptime monitoring &amp; alerting set up before we hand over</div>
+                        </div>
+                        <p style="margin-top:18px;font-size:12px;color:var(--text-muted);">We also offer training sessions for your team so they feel comfortable extending the codebase themselves.</p>
+                    </div>
+                </div>
+                <div class="modal-foot">
+                    <button type="button" onclick="scrollToSection('contact');window.closeStepModal();">Reach us about this stage</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ PROJECT DETAIL MODAL (floating card, not full-screen) ============ -->
+        <div class="modal-overlay" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+            <div class="modal-box proj-modal-box">
+                <div class="modal-head">
+                    <h3 id="projectModalTitle">Project</h3>
+                    <button class="modal-close" onclick="window.closeProjectDetail()" aria-label="Close">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                </div>
+                <div class="proj-modal-body">
+                    <div class="proj-modal-info">
+                        <div class="proj-modal-status-row">
+                            <span class="proj-status" id="projectModalStatus">Live</span>
+                        </div>
+                        <h3 id="projectModalName">Project name</h3>
+                        <p class="proj-modal-desc" id="projectModalDesc">Description</p>
+                        <div class="proj-modal-label">Tech stack</div>
+                        <div class="proj-modal-techs" id="projectModalTechs"></div>
+                    </div>
+                    <div class="proj-modal-visual" id="projectModalVisual">
+                        <!-- image or fallback injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-mobile-panel" id="navMobile">
+            <a href="#services" onclick="scrollToSection('services')">Services</a>
+            <a href="#ai-era" onclick="scrollToSection('ai-era')">The AI Era</a>
+            <a href="#business-analysis" onclick="scrollToSection('business-analysis')">Discovery</a>
+            <a href="#approach" onclick="scrollToSection('approach')">Approach</a>
+            <a href="#work" onclick="scrollToSection('work')">Work</a>
+            <a href="#team" onclick="scrollToSection('team')">Team</a>
+            <a href="#contact" onclick="scrollToSection('contact')">Contact</a>
+            <a href="signin.html" class="nm-signin" id="nmSignInLink">Sign in</a>
+            <div id="nmProfileBlock" style="display:none">
+                <div style="font-size:10px;letter-spacing:1.5px;color:var(--text-muted);margin:16px 0 4px;padding-top:14px;border-top:0.5px solid var(--border)">SIGNED IN AS</div>
+                <div style="font-size:14px;color:var(--text-primary);margin-bottom:10px;word-break:break-all" id="nmProfileEmail"></div>
+                <a href="#" onclick="window.openPrivacy();return false;">Privacy &amp; data</a>
+                <a href="#" onclick="window.openTerms();return false;">Terms &amp; Conditions</a>
+                <a href="#" onclick="window.confirmDeleteAccount();return false;" style="color:#ff8a75">Delete account</a>
+                <a href="#" onclick="window.signOutUser();return false;" style="color:#ff8a75">Log out</a>
+            </div>
+            <button class="btn btn-primary" onclick="scrollToSection('contact')">Hire us</button>
+        </div>
+
+        <!-- ============ HERO ============ -->
+        <section class="hero" id="home">
+            <div class="hero-glow"></div>
+
+            <div class="hero-stage">
+
+                <div class="hero-robot-wrap" id="heroRobotWrap" aria-hidden="true">
+                    <div class="robot-bubble" id="robotBubble">Hi! I'm Cody 👋</div>
+                    <svg class="hero-robot" viewBox="0 0 200 320" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="robotEyeGlow" cx="35%" cy="30%" r="75%">
+                                <stop offset="0" stop-color="#ffe4dc"/>
+                                <stop offset="45%" stop-color="var(--accent-light)"/>
+                                <stop offset="100%" stop-color="var(--accent-dark)"/>
+                            </radialGradient>
+                            <radialGradient id="rbHeadShell" cx="34%" cy="24%" r="80%">
+                                <stop offset="0" stop-color="#ffffff"/>
+                                <stop offset="45%" stop-color="#f2f1ef"/>
+                                <stop offset="100%" stop-color="#d3d3d8"/>
+                            </radialGradient>
+                            <linearGradient id="rbBodyShell" x1="0.15" y1="0" x2="0.85" y2="1">
+                                <stop offset="0" stop-color="#fbfbfa"/>
+                                <stop offset="55%" stop-color="#eeeef0"/>
+                                <stop offset="100%" stop-color="#d6d6da"/>
+                            </linearGradient>
+                            <linearGradient id="rbLimbShell" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0" stop-color="#fdfdfc"/>
+                                <stop offset="100%" stop-color="#d9d9dd"/>
+                            </linearGradient>
+                            <linearGradient id="rbVisor" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#241d1c"/>
+                                <stop offset="100%" stop-color="#0a0808"/>
+                            </linearGradient>
+                            <linearGradient id="rbFoot" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#2a2220"/>
+                                <stop offset="100%" stop-color="#100c0b"/>
+                            </linearGradient>
+                            <radialGradient id="rbJoint" cx="32%" cy="28%" r="75%">
+                                <stop offset="0" stop-color="#ffcabb"/>
+                                <stop offset="50%" stop-color="var(--accent-light)"/>
+                                <stop offset="100%" stop-color="var(--accent-dark)"/>
+                            </radialGradient>
+                            <linearGradient id="rbChest" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="var(--accent-light)"/>
+                                <stop offset="100%" stop-color="var(--accent)"/>
+                            </linearGradient>
+                            <clipPath id="rbHeadClip"><circle cx="100" cy="82" r="54"/></clipPath>
+                        </defs>
+                        <g class="robot-bob">
+                            <ellipse cx="100" cy="312" rx="58" ry="8" fill="#000" opacity=".32"/>
+
+                            <!-- ===== legs ===== -->
+                            <g class="robot-leg-l">
+                                <rect x="65" y="244" width="24" height="46" rx="11" fill="url(#rbLimbShell)"/>
+                                <rect x="65" y="244" width="8" height="46" rx="4" fill="#fff" opacity=".5"/>
+                                <rect x="62" y="284" width="30" height="16" rx="8" fill="url(#rbJoint)"/>
+                                <rect x="62" y="288" width="30" height="4" fill="#fff" opacity=".35"/>
+                                <path d="M55 296 h44 a11 11 0 0 1 11 11 v3 h-66 v-3 a11 11 0 0 1 11 -11 z" fill="url(#rbFoot)"/>
+                                <rect x="52" y="309" width="50" height="4" rx="2" fill="var(--accent-dark)" opacity=".85"/>
+                            </g>
+                            <g class="robot-leg-r">
+                                <rect x="111" y="244" width="24" height="46" rx="11" fill="url(#rbLimbShell)"/>
+                                <rect x="111" y="244" width="8" height="46" rx="4" fill="#fff" opacity=".5"/>
+                                <rect x="108" y="284" width="30" height="16" rx="8" fill="url(#rbJoint)"/>
+                                <rect x="108" y="288" width="30" height="4" fill="#fff" opacity=".35"/>
+                                <path d="M101 296 h44 a11 11 0 0 1 11 11 v3 h-66 v-3 a11 11 0 0 1 11 -11 z" fill="url(#rbFoot)"/>
+                                <rect x="98" y="309" width="50" height="4" rx="2" fill="var(--accent-dark)" opacity=".85"/>
+                            </g>
+
+                            <!-- ===== torso ===== -->
+                            <rect x="63" y="234" width="74" height="18" rx="9" fill="#100c0b" opacity=".85"/>
+                            <path d="M58 154 a28 28 0 0 1 28 -22 h28 a28 28 0 0 1 28 22 v58 a26 26 0 0 1 -26 26 h-32 a26 26 0 0 1 -26 -26 z" fill="url(#rbBodyShell)"/>
+                            <ellipse cx="82" cy="160" rx="26" ry="14" fill="#fff" opacity=".38"/>
+                            <rect x="76" y="203" width="48" height="8" rx="4" fill="#000" opacity=".07"/>
+                            <!-- chest display -->
+                            <rect x="85" y="172" width="30" height="40" rx="9" fill="#161211" opacity=".9"/>
+                            <rect x="90" y="177" width="20" height="12" rx="4" fill="url(#rbChest)"/>
+                            <rect x="90" y="193" width="20" height="12" rx="4" fill="url(#rbChest)" opacity=".55"/>
+                            <circle cx="100" cy="211" r="2.4" fill="var(--accent-light)"/>
+
+                            <!-- ===== arms ===== -->
+                            <g class="robot-arm-l">
+                                <rect x="33" y="158" width="20" height="52" rx="10" fill="url(#rbJoint)"/>
+                                <rect x="33" y="158" width="7" height="52" rx="3.5" fill="#fff" opacity=".4"/>
+                                <rect x="29" y="204" width="18" height="44" rx="9" fill="url(#rbLimbShell)"/>
+                                <circle cx="38" cy="253" r="12" fill="#18110f" opacity=".88"/>
+                                <path d="M32 258 l4 6 M38 260 l0 7 M44 258 l-4 6" stroke="#3a2f2c" stroke-width="2.2" stroke-linecap="round"/>
+                            </g>
+                            <g class="robot-arm-r">
+                                <rect x="147" y="158" width="20" height="52" rx="10" fill="url(#rbJoint)"/>
+                                <rect x="147" y="158" width="7" height="52" rx="3.5" fill="#fff" opacity=".4"/>
+                                <rect x="153" y="204" width="18" height="44" rx="9" fill="url(#rbLimbShell)"/>
+                                <circle cx="162" cy="253" r="12" fill="#18110f" opacity=".88"/>
+                                <path d="M156 258 l4 6 M162 260 l0 7 M168 258 l-4 6" stroke="#3a2f2c" stroke-width="2.2" stroke-linecap="round"/>
+                            </g>
+                            <circle cx="49" cy="160" r="19" fill="url(#rbJoint)"/>
+                            <circle cx="43" cy="153" r="5.5" fill="#fff" opacity=".55"/>
+                            <circle cx="151" cy="160" r="19" fill="url(#rbJoint)"/>
+                            <circle cx="145" cy="153" r="5.5" fill="#fff" opacity=".55"/>
+
+                            <!-- ===== neck ===== -->
+                            <rect x="88" y="132" width="24" height="20" rx="7" fill="#c9c9ce"/>
+                            <rect x="88" y="132" width="24" height="6" rx="3" fill="#000" opacity=".12"/>
+
+                            <!-- ===== antenna ===== -->
+                            <line x1="100" y1="26" x2="100" y2="10" stroke="#b7b7bc" stroke-width="3" stroke-linecap="round"/>
+                            <circle cx="100" cy="8" r="5.5" fill="var(--accent)"/>
+                            <circle cx="98" cy="6" r="1.8" fill="#fff" opacity=".8"/>
+
+                            <!-- ===== ear pods ===== -->
+                            <ellipse cx="39" cy="83" rx="11" ry="20" fill="url(#rbJoint)"/>
+                            <ellipse cx="35" cy="74" rx="3.5" ry="7" fill="#fff" opacity=".45"/>
+                            <ellipse cx="161" cy="83" rx="11" ry="20" fill="url(#rbJoint)"/>
+                            <ellipse cx="157" cy="74" rx="3.5" ry="7" fill="#fff" opacity=".45"/>
+
+                            <!-- ===== head shell ===== -->
+                            <circle cx="100" cy="82" r="55" fill="#000" opacity=".08"/>
+                            <circle cx="100" cy="82" r="54" fill="url(#rbHeadShell)"/>
+                            <g clip-path="url(#rbHeadClip)">
+                                <ellipse cx="76" cy="46" rx="46" ry="26" fill="#fff" opacity=".55"/>
+                                <path d="M46 96 q54 40 108 0 v56 h-108 z" fill="#000" opacity=".06"/>
+                                <line x1="66" y1="30" x2="80" y2="24" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".4"/>
+                                <line x1="118" y1="26" x2="132" y2="34" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".3"/>
+                            </g>
+                            <circle cx="100" cy="82" r="54" fill="none" stroke="#fff" stroke-width="1.4" opacity=".5"/>
+
+                            <!-- ===== visor / face ===== -->
+                            <rect x="51" y="57" width="98" height="53" rx="27" fill="url(#rbVisor)"/>
+                            <rect x="51" y="57" width="98" height="53" rx="27" fill="none" stroke="#3a3230" stroke-width="1"/>
+                            <path d="M58 66 q42 -14 84 0" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".08" fill="none"/>
+
+                            <!-- eyes -->
+                            <circle class="robot-eye-glow" cx="79" cy="84" r="16" fill="url(#robotEyeGlow)"/>
+                            <circle cx="79" cy="84" r="16" fill="none" stroke="var(--accent-light)" stroke-width="1.4" opacity=".8"/>
+                            <circle class="robot-eye-glow" cx="121" cy="84" r="16" fill="url(#robotEyeGlow)"/>
+                            <circle cx="121" cy="84" r="16" fill="none" stroke="var(--accent-light)" stroke-width="1.4" opacity=".8"/>
+                            <circle cx="73" cy="78" r="4.6" fill="#fff" opacity=".95"/>
+                            <circle cx="115" cy="78" r="4.6" fill="#fff" opacity=".95"/>
+                            <circle cx="85" cy="90" r="2" fill="#fff" opacity=".5"/>
+                            <circle cx="127" cy="90" r="2" fill="#fff" opacity=".5"/>
+
+                            <!-- mouth -->
+                            <rect x="86" y="120" width="28" height="4.5" rx="2.25" fill="#3a3230"/>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="hero-content" id="heroContent">
+                    <div class="eyebrow"><div class="eyebrow-dot"></div><span>MSME REGISTERED — INDIA</span></div>
+                    <h1>Building <em>legendary</em><br>code for the<br>modern web</h1>
+                    <p class="lead">Remote IT services company delivering full stack web apps, AI-powered solutions, and custom software — fast, clean, and production-ready.</p>
+                    <div class="btn-row">
+                        <button class="btn btn-primary" onclick="scrollToSection('contact')">Start a project</button>
+                        <button class="btn-link" onclick="scrollToSection('work')">See our work
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        </button>
+                    </div>
+                    <div class="badge-row" style="padding:28px 0 0">
+                        <div class="info-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Response within 24h</div>
+                        <div class="info-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z"/></svg>NDA-friendly</div>
+                        <div class="info-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8v4h8V3z"/></svg>Fixed-price or hourly</div>
+                    </div>
+                </div>
+
+                <div class="hero-reveal-panel" id="heroRevealPanel">
+                    <div class="reveal-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><span>Full stack web apps</span></div>
+                    <div class="reveal-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg><span>AI-powered products</span></div>
+                    <div class="reveal-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg><span>Launch-ready in days</span></div>
+                    <div class="reveal-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z"/></svg><span>NDA-friendly &amp; remote-first</span></div>
+                </div>
+
+            </div>
+
+            <div class="hero-marquee-strip">
+                <div class="stack-title">OUR TECH STACK</div>
+                <div class="marquee">
+                    <div class="marquee-track" id="marqueeTrack">
+                        <span class="pill">React</span><span class="pill">Node.js</span><span class="pill">MongoDB</span><span class="pill">Python</span><span class="pill">DeepSeek-R1</span><span class="pill">Llama 3.1</span><span class="pill">REST APIs</span><span class="pill">Vercel</span><span class="pill">Express</span><span class="pill">PostgreSQL</span><span class="pill">Tailwind</span><span class="pill">Next.js</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ SERVICES ============ -->
+        <section class="section" id="services">
+            <div class="section-pad" style="padding-bottom:0">
+                <div class="section-head">
+                    <div class="section-tag"><div class="dot"></div><span>WHAT WE BUILD</span></div>
+                    <h2>Four services, four different approaches</h2>
+                    <p>Click any service below to see exactly how we deliver it — each one has its own process, tools, and timeline.</p>
+                </div>
+            </div>
+            <div class="services-inner">
+                <div class="svc reveal" onclick="openServiceDetail('fullstack')" role="button" tabindex="0">
+                    <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+                    <h3>Full stack development</h3>
+                    <p>End-to-end web apps with the MERN stack, built and deployed by us — from data model to the live domain, with no handoff gaps between front end and back end.</p>
+                    <div class="svc-tags"><span>React</span><span>Node.js</span><span>MongoDB</span><span>Express</span></div>
+                    <span class="svc-more">See how we build this <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+                </div>
+                <div class="svc reveal" onclick="openServiceDetail('ai')" role="button" tabindex="0">
+                    <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="15" x2="4" y2="15"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="15" x2="23" y2="15"/></svg></div>
+                    <h3>AI integration</h3>
+                    <p>LLM-powered assistants, chatbots, and intelligent automation, wrapped in the guardrails and evaluation tooling that keep them predictable once real users show up.</p>
+                    <div class="svc-tags"><span>OpenAI</span><span>Claude API</span><span>RAG</span><span>Vector DB</span></div>
+                    <span class="svc-more">See how we build this <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+                </div>
+                <div class="svc reveal" onclick="openServiceDetail('landing')" role="button" tabindex="0">
+                    <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+                    <h3>Landing pages</h3>
+                    <p>Fast, responsive, high-converting sites that launch in days — built mobile-first with real motion and copy that's tuned to convert, not just look nice.</p>
+                    <div class="svc-tags"><span>Next.js</span><span>Tailwind</span><span>SEO</span><span>A/B ready</span></div>
+                    <span class="svc-more">See how we build this <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+                </div>
+                <div class="svc reveal" onclick="openServiceDetail('api')" role="button" tabindex="0">
+                    <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17V7a2 2 0 0 1 2-2h8l6 6v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M14 5v6h6"/></svg></div>
+                    <h3>API development</h3>
+                    <p>Scalable backends and REST APIs designed to grow with you, with documentation, auth, and rate-limiting built in from day one instead of bolted on later.</p>
+                    <div class="svc-tags"><span>REST</span><span>GraphQL</span><span>PostgreSQL</span><span>Docker</span></div>
+                    <span class="svc-more">See how we build this <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ TRIAD ============ -->
+        <section class="section">
+            <div class="triad">
+                <div class="triad-card reveal">
+                    <div class="triad-num">01 — BUILT FOR SHIPPING</div>
+                    <h3>Real products, not demos</h3>
+                    <p>Every engagement ends with something deployed and live — not a prototype gathering dust in a repo. We ship code that's actually used.</p>
+                </div>
+                <div class="triad-card reveal">
+                    <div class="triad-num">02 — POWERED BY AI</div>
+                    <h3>Modern tooling, used well</h3>
+                    <p>We reach for LLMs and automation only where they genuinely save you time and money. AI is a force multiplier, not a crutch.</p>
+                </div>
+                <div class="triad-card reveal">
+                    <div class="triad-num">03 — DESIGNED FOR SPEED</div>
+                    <h3>Small team, fast turnaround</h3>
+                    <p>No layers of account managers — you talk directly to the people writing your code. Decisions happen in hours, not weeks.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ SERVICE DETAIL ============ -->
+        <section class="section" id="service-detail">
+            <div class="section-pad" style="padding-bottom:0">
+                <div class="section-head">
+                    <div class="section-tag"><div class="dot"></div><span>HOW WE BUILD EACH SERVICE</span></div>
+                    <h2>Same team, four different playbooks</h2>
+                    <p>A landing page and an AI product don't get built the same way. Here's the specific approach behind each service.</p>
+                </div>
+            </div>
+            <div class="approach-grid">
+                <div class="tab-list" id="svcTabList" role="tablist">
+                    <button class="tab-btn active" data-svc="fullstack" role="tab" aria-selected="true">
+                        <span class="t-num">01</span><span class="t-title">Full stack</span>
+                    </button>
+                    <button class="tab-btn" data-svc="ai" role="tab" aria-selected="false">
+                        <span class="t-num">02</span><span class="t-title">AI integration</span>
+                    </button>
+                    <button class="tab-btn" data-svc="landing" role="tab" aria-selected="false">
+                        <span class="t-num">03</span><span class="t-title">Landing pages</span>
+                    </button>
+                    <button class="tab-btn" data-svc="api" role="tab" aria-selected="false">
+                        <span class="t-num">04</span><span class="t-title">API development</span>
+                    </button>
+                </div>
+                <div class="tab-panels">
+                    <div class="tab-panel active" data-svcpanel="fullstack">
+                        <h4>Full stack development</h4>
+                        <p>We design the data model first, then build front end and back end together in the same weekly cycle so nothing gets out of sync. MERN by default; we'll match your existing stack if you have one.</p>
+                        <div class="mock-metrics">
+                            <div class="mock-metric"><b>1–2</b><span>WEEKS TO MVP</span></div>
+                            <div class="mock-metric"><b>REST</b><span>+ SOCKETS</span></div>
+                            <div class="mock-metric"><b>100%</b><span>OWNED CODE</span></div>
+                        </div>
+                        <p style="margin-top:18px;font-size:12px;color:var(--text-muted);">We also handle deployments, CI/CD, and staging environments — so your app is always one click away from production.</p>
+                    </div>
+                    <div class="tab-panel" data-svcpanel="ai">
+                        <h4>AI integration</h4>
+                        <p>We start by picking the smallest model that hits your accuracy bar — not the biggest one available — then wrap it with guardrails, evaluation sets, and fallback logic so it behaves predictably in production.</p>
+                        <div class="mock">
+                            <div class="mock-checklist">
+                                <div class="mock-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Model &amp; provider selection against your budget</div>
+                                <div class="mock-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Prompt design + evaluation dataset</div>
+                                <div class="mock-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Guardrails for hallucination &amp; cost control</div>
+                            </div>
+                        </div>
+                        <p style="margin-top:18px;font-size:12px;color:var(--text-muted);">We also set up monitoring dashboards so you can see exactly how many tokens are being used and at what cost — no surprise bills.</p>
+                    </div>
+                    <div class="tab-panel" data-svcpanel="landing">
+                        <h4>Landing pages</h4>
+                        <p>Copy and layout come before code. We draft the message hierarchy, get your sign-off on a single static mockup, then build it responsive-first with real animations — live in days, not weeks.</p>
+                        <div class="mock-metrics">
+                            <div class="mock-metric"><b>2–5</b><span>DAYS TO LAUNCH</span></div>
+                            <div class="mock-metric"><b>95+</b><span>LIGHTHOUSE SCORE</span></div>
+                            <div class="mock-metric"><b>1</b><span>ROUND OF REVISIONS</span></div>
+                        </div>
+                        <p style="margin-top:18px;font-size:12px;color:var(--text-muted);">We also include basic SEO setup, meta tags, and analytics integration so you can start tracking conversions from day one.</p>
+                    </div>
+                    <div class="tab-panel" data-svcpanel="api">
+                        <h4>API development</h4>
+                        <p>We design the schema and write the docs before the first endpoint exists, then build with versioning and rate limits in from day one — so the API you ship in month one doesn't break the client you add in month six.</p>
+                        <div class="mock">
+                            <div class="ln"><span class="no">1</span><span class="k">GET</span>&nbsp;<span class="s">/v1/projects/:id</span></div>
+                            <div class="ln"><span class="no">2</span><span class="c">// versioned, rate-limited, documented</span></div>
+                            <div class="ln"><span class="no">3</span><span class="k">200</span>&nbsp;OK <span class="c">— 42ms</span></div>
+                            <div class="ln"><span class="no">4</span><span class="c">✓ OpenAPI spec auto-generated</span></div>
+                        </div>
+                        <p style="margin-top:18px;font-size:12px;color:var(--text-muted);">We also include a Postman collection and sample client code so your frontend team can start integrating immediately.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="reach-cta">
+                <p><b>Like the sound of this service?</b> Tell us what you're building and we'll scope it for free.</p>
+                <button class="btn btn-primary" onclick="scrollToSection('contact')">Reach us
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- ============ THE AI ERA ============ -->
+        <section class="section" id="ai-era">
+            <div class="ai-era-grid">
+                <div class="ai-era-left">
+                    <div class="section-head" style="margin-bottom:30px">
+                        <div class="section-tag"><div class="dot"></div><span>THE AI ERA</span></div>
+                        <h2 class="reveal">Software is being rebuilt around AI. We build with it, not around it.</h2>
+                        <p class="reveal">AI has moved from novelty to infrastructure — teams that use it well now ship faster, test more thoroughly, and catch problems before customers do. We treat AI as part of the engineering process itself, not a bolt-on chatbot feature.</p>
+                        <p class="reveal">In practice, that means AI pair-programming tools scaffold the repetitive parts of a build, LLMs generate edge-case test suites a human would take days to write by hand, and automation handles the checks that used to eat a QA engineer's whole afternoon. A person still reviews and merges every line — AI sets the pace, engineers set the standard.</p>
+                    </div>
+                    <div class="ai-stat-row">
+                        <div class="ai-stat reveal">
+                            <div class="ai-stat-num">01</div>
+                            <div class="ai-stat-txt"><b>Faster production.</b> AI-assisted scaffolding, boilerplate generation, and code review let our small team move at the pace of a much larger one — without cutting corners on architecture.</div>
+                        </div>
+                        <div class="ai-stat reveal">
+                            <div class="ai-stat-num">02</div>
+                            <div class="ai-stat-txt"><b>Deeper testing.</b> LLM-generated test cases, edge-case discovery, and automated regression checks mean bugs are caught in staging — not reported by your users.</div>
+                        </div>
+                        <div class="ai-stat reveal">
+                            <div class="ai-stat-num">03</div>
+                            <div class="ai-stat-txt"><b>Dependable delivery.</b> Every release goes through the same checklist: automated checks, manual QA, and a staged rollout — professionalism isn't optional, it's the default.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ai-era-right" id="ai-era-pipeline">
+                    <div class="stack-title" style="padding-left:2px">AI-ASSISTED DELIVERY PIPELINE</div>
+                    <div class="pipeline">
+                        <div class="pipeline-step reveal">
+                            <div class="pipeline-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 2v10l7 3"/></svg></div>
+                            <div class="pipeline-txt"><b>Generate</b><span>Scaffold features &amp; boilerplate with AI pair-programming</span></div>
+                            <svg class="pipeline-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                        <div class="pipeline-connector"></div>
+                        <div class="pipeline-step reveal">
+                            <div class="pipeline-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="6" height="6"/><path d="M4 12a8 8 0 0 1 8-8"/><path d="M20 12a8 8 0 0 1-8 8"/></svg></div>
+                            <div class="pipeline-txt"><b>Test</b><span>AI-generated test suites cover edge cases humans miss</span></div>
+                            <svg class="pipeline-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                        <div class="pipeline-connector"></div>
+                        <div class="pipeline-step reveal">
+                            <div class="pipeline-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></div>
+                            <div class="pipeline-txt"><b>Review</b><span>A human engineer reviews every AI-touched line before merge</span></div>
+                            <svg class="pipeline-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                        <div class="pipeline-connector"></div>
+                        <div class="pipeline-step reveal">
+                            <div class="pipeline-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></div>
+                            <div class="pipeline-txt"><b>Ship</b><span>Staged rollout to production with monitoring from day one</span></div>
+                            <svg class="pipeline-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                        <div class="pipeline-connector"></div>
+                        <div class="pipeline-step reveal">
+                            <div class="pipeline-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div>
+                            <div class="pipeline-txt"><b>Monitor</b><span>Uptime, error, and performance alerts stay on after handover</span></div>
+                            <svg class="pipeline-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ai-charts" id="ai-era-metrics">
+                <div class="chart-card reveal" style="--target:45%">
+                    <div class="chart-title">TIME TO PRODUCTION</div>
+                    <div class="chart-sub">Typical 4-week feature build: traditional workflow vs. our AI-assisted process, start to staging link.</div>
+                    <div class="bar-row">
+                        <div class="bar-label">Traditional</div>
+                        <div class="bar-track"><div class="bar-fill bar-muted" style="--target:100%"></div></div>
+                        <div class="bar-val">4 wks</div>
+                    </div>
+                    <div class="bar-row">
+                        <div class="bar-label">AI-assisted</div>
+                        <div class="bar-track"><div class="bar-fill bar-accent" style="--target:45%"></div></div>
+                        <div class="bar-val">~1.8 wks</div>
+                    </div>
+                </div>
+                <div class="chart-card reveal" style="--offset:25">
+                    <div class="chart-title">CAUGHT BEFORE LAUNCH</div>
+                    <div class="chart-sub">Share of defects found in AI-assisted testing &amp; QA, not reported by users after launch.</div>
+                    <div class="donut-wrap">
+                        <svg viewBox="0 0 120 120" class="donut">
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="var(--surface-3)" stroke-width="14"/>
+                            <circle class="donut-arc" cx="60" cy="60" r="50" fill="none" stroke="url(#cmGrad)" stroke-width="14" stroke-linecap="round" stroke-dasharray="314" transform="rotate(-90 60 60)"/>
+                            <text x="60" y="67" text-anchor="middle" font-family="Space Grotesk, Arial, sans-serif" font-weight="700" font-size="26" fill="var(--text-primary)">92%</text>
+                        </svg>
+                        <div class="donut-caption">Caught pre-launch through AI-generated tests + manual QA passes</div>
+                    </div>
+                </div>
+            </div>
+            <div class="ai-triad" id="ai-era-principles">
+                <div class="ai-card reveal">
+                    <div class="ai-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+                    <h3>Faster production</h3>
+                    <p>AI-assisted development compresses the distance between idea and working software, so your project moves from kickoff to a real staging link in days, not months.</p>
+                </div>
+                <div class="ai-card reveal">
+                    <div class="ai-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></div>
+                    <h3>Rigorous, AI-augmented testing</h3>
+                    <p>We pair automated, AI-generated test coverage with manual QA passes across devices and browsers, so issues surface before launch — not after.</p>
+                </div>
+                <div class="ai-card reveal">
+                    <div class="ai-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+                    <h3>Delivery you can rely on</h3>
+                    <p>Clear timelines, fixed-price or hourly billing, and a professional handover — documentation, staging access, and support included, not an afterthought.</p>
+                </div>
+            </div>
+            <div class="reach-cta">
+                <p><b>Want AI built into your product the right way?</b> Let's talk through what that looks like for you.</p>
+                <button class="btn btn-primary" onclick="scrollToSection('contact')">Reach us
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- ============ BUSINESS ANALYSIS ============ -->
+<section class="section ba-section" id="business-analysis">
+  <div class="ba-wrap">
+
+    <div class="ba-grid">
+
+      <!-- LEFT: narrative -->
+      <div class="reveal">
+        <div class="ba-eyebrow">For Founders &amp; Early-Stage Teams</div>
+        <h2 class="ba-title">Business-Analysis &amp; <span>Product Counseling</span></h2>
+        <p class="ba-sub">
+          A dedicated Business Analyst sits with you before a single line of code is written —
+          validating the idea, sizing the market, and turning a raw startup concept into a
+          build-ready product requirement document your dev team can execute from day one.
+        </p>
+
+        <ul class="ba-services">
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 12L13 4" stroke="#FF8468" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Idea validation, competitor mapping &amp; market sizing</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 12L13 4" stroke="#FF8468" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>MVP scoping — must-haves vs. nice-to-haves, ranked by impact</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 12L13 4" stroke="#FF8468" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Product requirement docs (PRD), user flows &amp; wireframes</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 12L13 4" stroke="#FF8468" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Business model, pricing &amp; go-to-market framing</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 12L13 4" stroke="#FF8468" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Investor-ready metrics, roadmap &amp; pitch narrative support</li>
+          <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 12L13 4" stroke="#FF8468" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Sprint planning &amp; scope control once development kicks off</li>
+        </ul>
+
+        <button type="button" class="ba-cta" onclick="window.openBAConsult()">Talk to our expert team →</button>
+      </div>
+
+      <!-- RIGHT: signature dashboard mockup -->
+      <div class="ba-mock reveal">
+        <div class="ba-mock-header">
+          <div class="dot-row"><span></span><span></span><span></span></div>
+          <div class="label">STARTUP_ROADMAP.VIEW</div>
+        </div>
+
+        <div class="ba-kpis">
+          <div class="ba-kpi up">
+            <div class="num">2–3 wks</div>
+            <div class="cap">Idea to build-ready PRD</div>
+          </div>
+          <div class="ba-kpi">
+            <div class="num">PRD</div>
+            <div class="cap">+ user flows delivered</div>
+          </div>
+          <div class="ba-kpi up">
+            <div class="num">4.9/5</div>
+            <div class="cap">Founder satisfaction</div>
+          </div>
+        </div>
+
+        <div class="ba-chart-card">
+          <svg viewBox="0 0 300 110" xmlns="http://www.w3.org/2000/svg">
+            <!-- bars -->
+            <rect x="10" y="55" width="18" height="45" rx="3" fill="#1f1f24"/>
+            <rect x="38" y="40" width="18" height="60" rx="3" fill="#1f1f24"/>
+            <rect x="66" y="30" width="18" height="70" rx="3" fill="#1f1f24"/>
+            <rect x="94" y="45" width="18" height="55" rx="3" fill="#1f1f24"/>
+            <rect x="122" y="20" width="18" height="80" rx="3" fill="#E85B4A"/>
+            <rect x="150" y="35" width="18" height="65" rx="3" fill="#1f1f24"/>
+            <rect x="178" y="15" width="18" height="85" rx="3" fill="#1f1f24"/>
+            <!-- trend line -->
+            <polyline points="19,50 47,35 75,25 103,40 131,15 159,30 187,10"
+              fill="none" stroke="#FF8468" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="131" cy="15" r="4" fill="#FF8468"/>
+          </svg>
+        </div>
+
+        <div class="ba-tools">
+          <span class="ba-tool-chip">SQL</span>
+          <span class="ba-tool-chip">Tableau</span>
+          <span class="ba-tool-chip">Jira</span>
+          <span class="ba-tool-chip">SAP</span>
+          <span class="ba-tool-chip">Agile / Scrum</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ELABORATE SERVICE ICON CARDS -->
+    <div class="ba-cards reveal">
+      <div class="ba-card">
+        <div class="ba-card-icon">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="11" cy="11" r="7" stroke="#E85B4A" stroke-width="1.6"/><path d="M16.2 16.2L22 22" stroke="#FF8468" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Idea Validation &amp; Market Research</h3>
+        <p>Competitor mapping, TAM/SAM/SOM sizing and early customer signal — so you build with evidence, not a hunch.</p>
+      </div>
+
+      <div class="ba-card">
+        <div class="ba-card-icon">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><rect x="4" y="4" width="18" height="18" rx="3" stroke="#FF8468" stroke-width="1.6"/><path d="M8 10h10M8 14h6" stroke="#FF8468" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Product Requirement Docs</h3>
+        <p>Clear PRDs, user stories and flows your engineering team can start building from on day one — no back-and-forth.</p>
+      </div>
+
+      <div class="ba-card">
+        <div class="ba-card-icon">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><circle cx="13" cy="13" r="9" stroke="#E85B4A" stroke-width="1.6"/><path d="M13 8v5l3.5 2" stroke="#E85B4A" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <h3>MVP Scoping &amp; Roadmapping</h3>
+        <p>A ranked, phased roadmap that separates your launch-critical MVP from future-release features.</p>
+      </div>
+
+      <div class="ba-card">
+        <div class="ba-card-icon">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M3 21V13M9 21V7M15 21V11M21 21V4" stroke="#FF8468" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Business Model &amp; GTM</h3>
+        <p>Pricing strategy, revenue model options and a go-to-market plan mapped to your first 100 users.</p>
+      </div>
+
+      <div class="ba-card">
+        <div class="ba-card-icon">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M13 3l3.5 7.2L24 11.3l-5.5 5.4L19.8 24 13 20.2 6.2 24l1.3-7.3L2 11.3l7.5-1.1L13 3z" stroke="#E85B4A" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Founder &amp; Client Handling</h3>
+        <p>A dedicated point of contact for every founder, transparent status reporting, and clean sign-off — no surprises, no missed dates.</p>
+      </div>
+
+      <div class="ba-card">
+        <div class="ba-card-icon">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><rect x="4" y="4" width="18" height="18" rx="3" stroke="#FF8468" stroke-width="1.6"/><path d="M9 13h8M13 9v8" stroke="#FF8468" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Risk &amp; Scope Control</h3>
+        <p>Proactive scope governance and risk logs so your product can pivot without losing direction — or your runway.</p>
+      </div>
+    </div>
+
+    <!-- MARKET & DELIVERY INSIGHTS -->
+    <div class="ba-insights reveal">
+      <div class="ba-insights-head">
+        <div class="ba-eyebrow">Market &amp; Delivery Insights</div>
+        <h3>How our product counseling effort breaks down for early-stage founders</h3>
+      </div>
+
+      <div class="ba-chart-grid">
+
+        <!-- Donut: effort mix -->
+        <div class="ba-chart-panel">
+          <div class="ba-chart-panel-title">Effort Mix by Workstream</div>
+          <svg viewBox="0 0 220 220" class="ba-donut">
+            <circle cx="110" cy="110" r="80" fill="none" stroke="#1f1f24" stroke-width="26"/>
+            <circle class="ba-arc" style="--len:150.7" cx="110" cy="110" r="80" fill="none" stroke="#E85B4A" stroke-width="26"
+              stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 110 110)"/>
+            <circle class="ba-arc" style="--len:100.5" cx="110" cy="110" r="80" fill="none" stroke="#FF8468" stroke-width="26"
+              stroke-dashoffset="-150.7" stroke-linecap="round" transform="rotate(-90 110 110)"/>
+            <circle class="ba-arc" style="--len:75.4" cx="110" cy="110" r="80" fill="none" stroke="#C0392B" stroke-width="26"
+              stroke-dashoffset="-251.2" stroke-linecap="round" transform="rotate(-90 110 110)"/>
+            <circle class="ba-arc" style="--len:50.3" cx="110" cy="110" r="80" fill="none" stroke="#9C9CA3" stroke-width="26"
+              stroke-dashoffset="-326.6" stroke-linecap="round" transform="rotate(-90 110 110)"/>
+            <text class="ba-donut-num" x="110" y="105" text-anchor="middle" font-family="Space Grotesk, Arial, sans-serif" font-size="26" font-weight="700" fill="#f5f5f4">4</text>
+            <text class="ba-donut-cap" x="110" y="126" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="10" fill="#9c9ca3">WORKSTREAMS</text>
+          </svg>
+          <ul class="ba-legend">
+            <li><span style="background:#E85B4A"></span>Idea Validation &amp; Research — 43%</li>
+            <li><span style="background:#FF8468"></span>PRD &amp; Requirements — 29%</li>
+            <li><span style="background:#C0392B"></span>MVP Roadmapping — 21%</li>
+            <li><span style="background:#9C9CA3"></span>Business Model &amp; GTM — 7%</li>
+          </ul>
+        </div>
+
+        <!-- Area/trend: milestone delivery -->
+        <div class="ba-chart-panel">
+          <div class="ba-chart-panel-title">Milestone Delivery Consistency</div>
+          <svg viewBox="0 0 260 150" class="ba-trend">
+            <line x1="20" y1="20" x2="20" y2="120" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
+            <line x1="20" y1="120" x2="245" y2="120" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
+            <path class="ba-trend-line" d="M20,90 L70,70 L120,60 L170,38 L220,28"
+              fill="none" stroke="#FF8468" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path class="ba-trend-area" d="M20,90 L70,70 L120,60 L170,38 L220,28 L220,120 L20,120 Z" fill="url(#baAreaFill)" opacity="0.5"/>
+            <defs>
+              <linearGradient id="baAreaFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#FF8468" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#FF8468" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <circle class="ba-pt" cx="20" cy="90" r="3.2" fill="#FF8468"/>
+            <circle class="ba-pt" cx="70" cy="70" r="3.2" fill="#FF8468"/>
+            <circle class="ba-pt" cx="120" cy="60" r="3.2" fill="#FF8468"/>
+            <circle class="ba-pt" cx="170" cy="38" r="3.2" fill="#FF8468"/>
+            <circle class="ba-pt" cx="220" cy="28" r="4" fill="#FF8468" stroke="#08080a" stroke-width="2"/>
+            <text x="20" y="136" font-family="Inter, Arial, sans-serif" font-size="9" fill="#9c9ca3">Q1</text>
+            <text x="68" y="136" font-family="Inter, Arial, sans-serif" font-size="9" fill="#9c9ca3">Q2</text>
+            <text x="118" y="136" font-family="Inter, Arial, sans-serif" font-size="9" fill="#9c9ca3">Q3</text>
+            <text x="168" y="136" font-family="Inter, Arial, sans-serif" font-size="9" fill="#9c9ca3">Q4</text>
+            <text x="210" y="136" font-family="Inter, Arial, sans-serif" font-size="9" fill="#9c9ca3">Q5</text>
+            <text x="196" y="20" font-family="Space Grotesk, Arial, sans-serif" font-size="13" font-weight="700" fill="#f5f5f4">100%</text>
+          </svg>
+        </div>
+
+        <!-- Bar: founder satisfaction by workstream -->
+        <div class="ba-chart-panel">
+          <div class="ba-chart-panel-title">Founder Satisfaction by Workstream</div>
+          <div class="ba-hbars">
+            <div class="ba-hbar-row">
+              <span class="ba-hbar-label">Idea Validation</span>
+              <div class="ba-hbar-track"><div class="ba-hbar-fill" style="--target:96%; background:#E85B4A;"></div></div>
+              <span class="ba-hbar-val">96%</span>
+            </div>
+            <div class="ba-hbar-row">
+              <span class="ba-hbar-label">PRD &amp; Specs</span>
+              <div class="ba-hbar-track"><div class="ba-hbar-fill" style="--target:92%; background:#FF8468;"></div></div>
+              <span class="ba-hbar-val">92%</span>
+            </div>
+            <div class="ba-hbar-row">
+              <span class="ba-hbar-label">MVP Roadmapping</span>
+              <div class="ba-hbar-track"><div class="ba-hbar-fill" style="--target:94%; background:#C0392B;"></div></div>
+              <span class="ba-hbar-val">94%</span>
+            </div>
+            <div class="ba-hbar-row">
+              <span class="ba-hbar-label">Business Model</span>
+              <div class="ba-hbar-track"><div class="ba-hbar-fill" style="--target:90%; background:#9C9CA3;"></div></div>
+              <span class="ba-hbar-val">90%</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CLIENT EXPERIENCE (kept low-key, as simple points) -->
+    <div class="ba-team reveal">
+      <div class="ba-team-copy" style="max-width:none;">
+        <div class="ba-eyebrow">Client experience</div>
+        <h3>Trusted from first-time founders to global pharma enterprises</h3>
+        <ul class="ba-client-points">
+          <li><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 12L13 4" stroke="#FF8468" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Structured MVP roadmaps &amp; go-to-market plans for early-stage founders preparing to build or raise</li>
+          <li><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 12L13 4" stroke="#FF8468" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Successfully delivered validation &amp; documentation projects for Mankind Pharma</li>
+          <li><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 12L13 4" stroke="#FF8468" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Completed project engagement with Alkem Pharma</li>
+          <li><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 12L13 4" stroke="#FF8468" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Consistent on-time delivery record across every engagement, startup or enterprise</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- stat strip -->
+    <div class="ba-stats">
+      <div class="ba-stat">
+        <div class="num">2–3 wks</div>
+        <div class="cap">Average idea-to-PRD turnaround</div>
+      </div>
+      <div class="ba-stat">
+        <div class="num">97.9%</div>
+        <div class="cap">On-time milestone submission</div>
+      </div>
+      <div class="ba-stat">
+        <div class="num">97.9%</div>
+        <div class="cap">Client sign-off rate</div>
+      </div>
+      <div class="ba-stat">
+        <div class="num">Global</div>
+        <div class="cap">Reach across domestic &amp; abroad clients</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+        <!-- ============ APPROACH / TABS ============ -->
+        <section class="section" id="approach">
+            <div class="section-pad" style="padding-bottom:0">
+                <div class="section-head">
+                    <div class="section-tag"><div class="dot"></div><span>HOW WE WORK</span></div>
+                    <h2>From idea to production</h2>
+                    <p>A straightforward five-step process built around remote collaboration, AI-assisted engineering, and fast feedback loops.</p>
+                </div>
+            </div>
+            <div class="approach-steps-grid" id="approachStepsGrid">
+                <button type="button" class="step-card" data-step="0" onclick="window.openStepModal(0)">
+                    <svg class="step-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                    <div class="step-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+                    <span class="step-card-num">01</span>
+                    <span class="step-card-title">Scope</span>
+                    <span class="step-card-dur">Requirements & Planning . 3–4 days</span>
+                </button>
+                <button type="button" class="step-card" data-step="1" onclick="window.openStepModal(1)">
+                    <svg class="step-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                    <div class="step-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+                    <span class="step-card-num">02</span>
+                    <span class="step-card-title">Build</span>
+                    <span class="step-card-dur">Data & Code Build . 2–4 weeks</span>
+                </button>
+                <button type="button" class="step-card" data-step="2" onclick="window.openStepModal(2)">
+                    <svg class="step-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                    <div class="step-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></div>
+                    <span class="step-card-num">03</span>
+                    <span class="step-card-title">Quality Assurance</span>
+                    <span class="step-card-dur">2–5 days</span>
+                </button>
+                <button type="button" class="step-card" data-step="3" onclick="window.openStepModal(3)">
+                    <svg class="step-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                    <div class="step-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 16.5 5.5 21l2-7.5L2 9h7z"/></svg></div>
+                    <span class="step-card-num">04</span>
+                    <span class="step-card-title">Deploy</span>
+                    <span class="step-card-dur">1 day</span>
+                </button>
+                <button type="button" class="step-card" data-step="4" onclick="window.openStepModal(4)">
+                    <svg class="step-card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                    <div class="step-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-8h3z"/><path d="M3 19a2 2 0 0 0 2 2h1v-8H3z"/></svg></div>
+                    <span class="step-card-num">05</span>
+                    <span class="step-card-title">Tech Support</span>
+                    <span class="step-card-dur">Ongoing</span>
+                </button>
+            </div>
+            <div class="reach-cta">
+                <p><b>Want this exact process running on your project?</b> Tell us what you're building and we'll map it to a timeline.</p>
+                <button class="btn btn-primary" onclick="scrollToSection('contact')">Reach us
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- ============ WORK ============ -->
+        <section class="section" id="work">
+            <div class="work">
+                <div class="work-left">
+                    <h2>Our recent work</h2>
+                    <p>Every project we build is deployed, live, and production-ready. We don't build demos — we build real products.</p>
+                    <button class="btn btn-ghost" id="viewAllBtn">
+                        <span id="viewAllLabel">View all projects</span>
+                        <svg id="viewAllChevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;transition:transform .3s var(--ease)"><polyline points="6 9 12 15 18 9"/></svg>
+                    </button>
+                    <p style="margin-top:16px;font-size:11px;color:var(--text-muted);">We've also built internal dashboards, admin panels, and real-time data visualisation tools for clients across fintech, healthtech, and edtech.</p>
+                </div>
+                <div class="work-right">
+                    <div class="proj" data-project="curalink" onclick="window.openProjectDetail('curalink')" tabindex="0" role="button" aria-label="View Curalink project details">
+                        <div class="proj-top"><h4>Curalink — AI medical research assistant</h4><span class="proj-status">Live</span></div>
+                        <p>Fetches 100+ research papers per query with citation-backed AI responses.</p>
+                        <div class="proj-techs"><span class="proj-tech">React</span><span class="proj-tech">Node.js</span><span class="proj-tech">DeepSeek-R1</span><span class="proj-tech">MongoDB</span><span class="proj-tech">Ollama</span></div>
+                    </div>
+                    <div class="proj" data-project="habit-tracker" onclick="window.openProjectDetail('habit-tracker')" tabindex="0" role="button" aria-label="View Habit Tracker project details">
+                        <div class="proj-top"><h4>Habit Tracker — daily habit &amp; streak app</h4><span class="proj-status">Live</span></div>
+                        <p>A clean habit-tracking UI that helps users build and hold streaks on daily goals.</p>
+                        <div class="proj-techs"><span class="proj-tech">React</span><span class="proj-tech">Vercel</span></div>
+                    </div>
+                    <div class="proj-more" id="projMore">
+                        <div class="proj" data-project="nebula" onclick="window.openProjectDetail('nebula')" tabindex="0" role="button" aria-label="View Nebula Glass project details">
+                            <div class="proj-top"><h4>Nebula Glass — immersive experience</h4><span class="proj-status sample">Sample work</span></div>
+                            <p>Interactive landing page with real-time animations and glassmorphism UI — built as a design/UI sample, not a client engagement.</p>
+                            <div class="proj-techs"><span class="proj-tech">HTML/CSS/JS</span><span class="proj-tech">Vercel</span></div>
+                        </div>
+                        <div class="proj" data-project="slate-docs" onclick="window.openProjectDetail('slate-docs')" tabindex="0" role="button" aria-label="View Slate Docs project details">
+                            <div class="proj-top"><h4>Slate Docs — AI document summarizer</h4><span class="proj-status dev">In development</span></div>
+                            <p>Upload a PDF, get a clean summary and searchable Q&amp;A powered by local LLMs.</p>
+                            <div class="proj-techs"><span class="proj-tech">Python</span><span class="proj-tech">Llama 3.1</span><span class="proj-tech">FastAPI</span></div>
+                        </div>
+                        <div class="proj" data-project="flowboard" onclick="window.openProjectDetail('flowboard')" tabindex="0" role="button" aria-label="View FlowBoard project details">
+                            <div class="proj-top"><h4>FlowBoard — real-time analytics dashboard</h4><span class="proj-status dev">In development</span></div>
+                            <p>Live metrics and event streaming for product teams who need answers in seconds, not hours.</p>
+                            <div class="proj-techs"><span class="proj-tech">React</span><span class="proj-tech">D3</span><span class="proj-tech">WebSocket</span><span class="proj-tech">PostgreSQL</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ STATS STRIP ============ -->
+        <section class="section stats-strip">
+            <div class="stats-inner">
+                <div class="stat-block reveal">
+                    <div class="stat-val"><span class="counter" data-target="7">0</span><span class="suffix">+</span></div>
+                    <div class="stat-label">LIVE APPS SHIPPED</div>
+                </div>
+                <div class="stat-block reveal">
+                    <div class="stat-val"><span class="counter" data-target="100">0</span><span class="suffix">%</span></div>
+                    <div class="stat-label">REMOTE-FIRST TEAM</div>
+                </div>
+                <div class="stat-block reveal">
+                    <div class="stat-val"><span class="counter" data-target="4">0</span></div>
+                    <div class="stat-label">CORE SERVICES OFFERED</div>
+                </div>
+                <div class="stat-block reveal">
+                    <div class="stat-val"><span class="counter" data-target="24">0</span><span class="suffix">h</span></div>
+                    <div class="stat-label">AVG. RESPONSE TIME</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PROMISE ============ -->
+        <section class="section promise">
+            <div class="promise-inner">
+                <div class="promise-item reveal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z"/></svg>
+                    <h4>NDA-friendly</h4><p>Your idea stays yours, on paper.</p>
+                </div>
+                <div class="promise-item reveal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <h4>24h response time</h4><p>No waiting weeks for a reply.</p>
+                </div>
+                <div class="promise-item reveal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8v4h8V3z"/></svg>
+                    <h4>Fixed-price or hourly</h4><p>Clear costs before we start.</p>
+                </div>
+                <div class="promise-item reveal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>
+                    <h4>Tested before ship</h4><p>QA is a step, not an afterthought.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ TEAM ============ -->
+        <section class="section" id="team">
+            <div class="section-pad">
+                <div class="section-head">
+                    <div class="section-tag"><div class="dot"></div><span>THE PEOPLE BEHIND THE CODE</span></div>
+                    <h2>Meet our team</h2>
+                    <p>A small, senior team — each owns a domain end to end, so your project always has a specialist on it, not a generalist spread thin.</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-card reveal">
+                        <div class="team-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7v1H4v-1z"/></svg></div>
+                        <div class="team-role-tag founder">Founder</div>
+                        <h3>Vigneshwar R</h3>
+                        <div class="team-domain">AI Developer · Full Stack Developer</div>
+                        <p>Leads product direction and engineering — from system architecture to shipping AI-powered features and full stack builds end to end.</p>
+                    </div>
+                    <div class="team-card reveal">
+                        <div class="team-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7v1H4v-1z"/></svg></div>
+                        <div class="team-role-tag founder">Co-founder</div>
+                        <h3>Srinivasan B</h3>
+                        <div class="team-domain">Quality Assurance (QA) · Testing (Manual &amp; Automation)</div>
+                        <p>Owns quality across every release — QA planning plus manual and automated test suites that catch regressions before they ever reach production.</p>
+                    </div>
+                    <div class="team-card reveal">
+                        <div class="team-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7v1H4v-1z"/></svg></div>
+                        <h3>Ashwin G</h3>
+                        <div class="team-domain">Business Analyst · Quality Control</div>
+                        <p>Turns client requirements into clear, audit-ready documentation — URS, FRS and sprint plans — while overseeing quality control checks that keep every engagement on scope and on standard.</p>
+                    </div>
+                    <div class="team-card reveal">
+                        <div class="team-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7v1H4v-1z"/></svg></div>
+                        <h3>Polanath M</h3>
+                        <div class="team-domain">DevOps · Developer</div>
+                        <p>Builds and maintains the delivery pipeline — CI/CD, deployments and monitoring — so releases stay fast and uptime stays high.</p>
+                    </div>
+                    <div class="team-card reveal">
+                        <div class="team-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-2.8 0-4.6 2-4.9 4.4C6.4 8 6 8.8 6 9.6c0 .7.3 1.3.8 1.7.4 1.9 2 3.3 3.9 3.7v1.2c-3.8.5-6.7 2.9-6.7 6.3v.5h16v-.5c0-3.4-2.9-5.8-6.7-6.3v-1.2c1.9-.4 3.5-1.8 3.9-3.7.5-.4.8-1 .8-1.7 0-.8-.4-1.6-1.1-2.2C16.6 5 14.8 3 12 3z"/></svg></div>
+                        <h3>Suba Sri S</h3>
+                        <div class="team-domain">Cybersecurity Analyst</div>
+                        <p>Reviews every build for security gaps — dependency audits, access controls and hardening — so nothing ships with a hidden risk.</p>
+                    </div>
+                    <div class="team-card reveal">
+                        <div class="team-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-2.8 0-4.6 2-4.9 4.4C6.4 8 6 8.8 6 9.6c0 .7.3 1.3.8 1.7.4 1.9 2 3.3 3.9 3.7v1.2c-3.8.5-6.7 2.9-6.7 6.3v.5h16v-.5c0-3.4-2.9-5.8-6.7-6.3v-1.2c1.9-.4 3.5-1.8 3.9-3.7.5-.4.8-1 .8-1.7 0-.8-.4-1.6-1.1-2.2C16.6 5 14.8 3 12 3z"/></svg></div>
+                        <h3>Harishini V</h3>
+                        <div class="team-domain">QA · Operations Analyst</div>
+                        <p>Bridges quality and operations — running QA checks against every release while keeping day-to-day delivery workflows organised and on track.</p>
+                    </div>
+                    <div class="team-card reveal">
+                        <div class="team-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-2.8 0-4.6 2-4.9 4.4C6.4 8 6 8.8 6 9.6c0 .7.3 1.3.8 1.7.4 1.9 2 3.3 3.9 3.7v1.2c-3.8.5-6.7 2.9-6.7 6.3v.5h16v-.5c0-3.4-2.9-5.8-6.7-6.3v-1.2c1.9-.4 3.5-1.8 3.9-3.7.5-.4.8-1 .8-1.7 0-.8-.4-1.6-1.1-2.2C16.6 5 14.8 3 12 3z"/></svg></div>
+                        <h3>Keerthi</h3>
+                        <div class="team-domain">Java Developer</div>
+                        <p>Builds and maintains robust backend services in Java — writing clean, well-tested code that keeps core application logic reliable at scale.</p>
+                    </div>
+                    <div class="team-card reveal">
+                        <div class="team-avatar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c-2.8 0-4.6 2-4.9 4.4C6.4 8 6 8.8 6 9.6c0 .7.3 1.3.8 1.7.4 1.9 2 3.3 3.9 3.7v1.2c-3.8.5-6.7 2.9-6.7 6.3v.5h16v-.5c0-3.4-2.9-5.8-6.7-6.3v-1.2c1.9-.4 3.5-1.8 3.9-3.7.5-.4.8-1 .8-1.7 0-.8-.4-1.6-1.1-2.2C16.6 5 14.8 3 12 3z"/></svg></div>
+                        <h3>Bhuvaneshwari</h3>
+                        <div class="team-domain">Senior HR &amp; People Operations</div>
+                        <p>Brings deep, cross-functional HR expertise to the team — leading hiring, onboarding, policy and culture so the studio scales with the right people in the right roles.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ CTA BAND ============ -->
+        <section class="section cta-band">
+            <div class="section-tag" style="justify-content:center"><div class="dot"></div><span>LET'S TALK</span></div>
+            <h2>Have a product idea? Let's make it <em style="color:var(--accent);font-style:normal">real</em>.</h2>
+            <p>Free 30-minute consultation call. No pressure, no obligation — just a straight answer on scope and cost.</p>
+            <div class="btn-row">
+                <button class="btn btn-primary" onclick="scrollToSection('contact')">Start a project</button>
+                <button class="btn btn-ghost" onclick="copyEmail(this)">Email us directly</button>
+            </div>
+        </section>
+
+        <!-- ============ CONTACT ============ -->
+        <section class="section" id="contact">
+            <div class="contact">
+                <div class="contact-left reveal">
+                    <h2>Let's build something together</h2>
+                    <p>Tell us about your project. We respond within 24 hours and offer a free consultation call.</p>
+                    <div class="contact-info">
+                        <button class="contact-item clickable" onclick="copyEmail(this)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+                            codemyth.technologies@gmail.com
+                        </button>
+                        <div class="contact-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Siruseri, Chennai — Remote worldwide
+                        </div>
+                        <div class="contact-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            Response within 24 hours
+                        </div>
+                        <div class="contact-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                            UDYAM-PY-03-0057608
+                        </div>
+                    </div>
+                    <div class="social-row">
+                        <a class="icon-btn" href="mailto:codemyth.technologies@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></a>
+                        <a class="icon-btn" href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.3 3.6 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6a4.6 4.6 0 0 1 1.3-3.2 4.3 4.3 0 0 1 .1-3.2s1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2a4.3 4.3 0 0 1 .1 3.2 4.6 4.6 0 0 1 1.3 3.2c0 4.7-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z"/></svg></a>
+                        <a class="icon-btn" href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px"><path d="M20.4 20.4h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.5-2.1 3v5.6H9.4V9h3.4v1.6h.1c.5-.9 1.6-1.9 3.3-1.9 3.6 0 4.2 2.4 4.2 5.4v6.3zM5.3 7.4a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM7 20.4H3.6V9H7v11.4z"/></svg></a>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contactForm" novalidate>
+                    <div class="field-row">
+                        <div class="field" id="field-name">
+                            <label for="cf-name">Your name</label>
+                            <input type="text" id="cf-name" name="name" placeholder="Ada Lovelace" autocomplete="name" required>
+                            <div class="field-err">Please enter your name</div>
+                        </div>
+                        <div class="field" id="field-email">
+                            <label for="cf-email">Your email</label>
+                            <input type="email" id="cf-email" name="email" placeholder="you@company.com" autocomplete="email" required>
+                            <div class="field-err">Enter a valid email</div>
+                        </div>
+                    </div>
+                    <div class="field-row">
+                        <div class="field" id="field-stage">
+                            <label for="cf-stage">Startup stage</label>
+                            <select id="cf-stage" name="stage">
+                                <option value="">Select a stage (optional)</option>
+                                <option value="idea">Just an idea</option>
+                                <option value="validating">Validating / early research</option>
+                                <option value="mvp">Building an MVP</option>
+                                <option value="launched">Launched, looking to grow</option>
+                            </select>
+                        </div>
+                        <div class="field" id="field-need">
+                            <label for="cf-need">What do you need?</label>
+                            <select id="cf-need" name="need">
+                                <option value="">Select an option (optional)</option>
+                                <option value="ba-product">Project Consultation</option>
+                                <option value="full-stack">Full Stack Development</option>
+                                <option value="ai">AI Integration</option>
+                                <option value="landing">Landing Page / Website</option>
+                                <option value="not-sure">Others</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field" id="field-message">
+                        <label for="cf-message">Tell us about your project</label>
+                        <textarea id="cf-message" name="message" placeholder="What are you building, and what's the timeline?" maxlength="500" required></textarea>
+                        <div class="char-count"><span id="charCount">0</span>/500</div>
+                        <div class="field-err">Message should be at least 10 characters</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%;padding:13px" id="cfSubmit">
+                        <span id="cfSubmitLabel">Send message</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ============ FOOTER ============ -->
+        <footer class="footer">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="#home" class="brand">
+                        <!-- NEW LOGO (same) -->
+                        <img src="logo.png" alt="Code Myth Technologies" class="brand-mark" style="width: 60px; height: 60px; object-fit:contain;" />
+                        <div class="brand-lockup">
+                            <div class="brand-line1"><span class="b-code">CODE</span><span class="b-myth">MYTH</span></div>
+                            <div class="brand-line2">TECHNOLOGIES</div>
+                        </div>
+                    </a>
+                    <p>A remote-first IT studio building full stack apps, AI-powered tools, and custom software — engineered for the AI era, shipped with production discipline.</p>
+                </div>
+                <div class="footer-col">
+                    <h5>COMPANY</h5>
+                    <a href="#services" onclick="scrollToSection('services');return false;">Services</a>
+                    <a href="#business-analysis" onclick="scrollToSection('business-analysis');return false;">Discovery</a>
+                    <a href="#approach" onclick="scrollToSection('approach');return false;">Approach</a>
+                    <a href="#work" onclick="scrollToSection('work');return false;">Work</a>
+                    <a href="#contact" onclick="scrollToSection('contact');return false;">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h5>SERVICES</h5>
+                    <a href="#services" onclick="scrollToSection('services');return false;">Full stack development</a>
+                    <a href="#services" onclick="scrollToSection('services');return false;">AI integration</a>
+                    <a href="#services" onclick="scrollToSection('services');return false;">Landing pages</a>
+                    <a href="#services" onclick="scrollToSection('services');return false;">API development</a>
+                </div>
+                <div class="footer-col">
+                    <h5>GET STARTED</h5>
+                    <button onclick="scrollToSection('contact')">Start a project</button>
+                    <button onclick="copyEmail(this)">Copy our email</button>
+                    <a href="signin.html">Client sign in</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="f-left">CODE MYTH TECHNOLOGIES — UDYAM-PY-03-0057608</div>
+                <div class="f-right">© <span id="year"></span> Code Myth Technologies, Chennai, India — Remote worldwide. All rights reserved.</div>
+            </div>
+        </footer>
+
+        <button class="to-top" id="toTop" aria-label="Back to top">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        </button>
+
+    </div><!-- /.page-shell -->
+
+    <!-- Firebase SDK (import map not needed – using module script) -->
+    <script type="importmap">
+        {
+            "imports": {
+                "firebase/app": "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js",
+                "firebase/auth": "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js",
+                "firebase/firestore": "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js",
+                "firebase/analytics": "https://www.gstatic.com/firebasejs/12.16.0/firebase-analytics.js"
+            }
+        }
+    </script>
+    <script type="module" src="index.js"></script>
+
+    <!-- Inline scripts for navigation, reveal, counters, etc. -->
+
+</body>
+</html>

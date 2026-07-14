@@ -1,0 +1,31 @@
+{
+  "name": "codemyth-technologies",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
+    "firebase": "^10.13.2",
+    "firebase-admin": "^12.7.0",
+    "firebase-functions": "^7.2.5",
+    "framer-motion": "^11.11.9",
+    "next": "^14.2.15",
+    "nodemailer": "^6.9.15",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.15"
+  },
+  "engines": {
+    "node": ">=18.18.0"
+  }
+}
