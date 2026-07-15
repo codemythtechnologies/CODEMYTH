@@ -81,7 +81,7 @@ const CLIENT_POINTS = [
 const BA_STATS = [
   { num: "2–3 wks", cap: "Average idea-to-PRD turnaround" },
   { num: "97.9%", cap: "On-time milestone submission" },
-  { num: "97.9%", cap: "Client sign-off rate" },
+  { num: "98.2%", cap: "Client sign-off rate" },
   { num: "Global", cap: "Reach across domestic & abroad clients" },
 ];
 
@@ -112,7 +112,7 @@ export default function BusinessAnalysisSection({ onOpenBAConsult }) {
           {/* LEFT: narrative */}
           <Reveal>
             <div className="ba-eyebrow">For Founders &amp; Early-Stage Teams</div>
-            <h2 className="ba-title">Business-Analysis &amp; <span>Product Counseling</span></h2>
+            <h2 className="ba-title">Project-Management &amp; <span>Product Counseling</span></h2>
             <p className="ba-sub">
               A dedicated Business Analyst sits with you before a single line of code is written —
               validating the idea, sizing the market, and turning a raw startup concept into a
@@ -225,7 +225,7 @@ export default function BusinessAnalysisSection({ onOpenBAConsult }) {
                 <defs>
                   <linearGradient id="baAreaFill" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stopColor="#FF8468" stopOpacity="0.35" />
-                    <stop offset="100%" stopColor="#FF8468" stopOpacity="0" />
+                    <stop offset="97.9%" stopColor="#FF8468" stopOpacity="0" />
                   </linearGradient>
                 </defs>
                 <circle className="ba-pt" cx="20" cy="90" r="3.2" fill="#FF8468" />

@@ -19,7 +19,7 @@ export const team = [
   {
     name: "Ashwin G",
     domain: "Business Analyst · Quality Control",
-    bio: "Turns client requirements into clear, audit-ready documentation — URS, FRS and sprint plans — while overseeing quality control checks that keep every engagement on scope and on standard.",
+    bio: "Turns client requirements into clear, audit-ready documentation — Healthcare IT Pharma Analyst — while overseeing quality control checks that keep every engagement on scope and on standard.",
     tag: null,
     icon: "person",
   },

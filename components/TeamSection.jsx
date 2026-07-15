@@ -24,29 +24,65 @@ function circularOffset(i, active, len) {
   return diff;
 }
 
+// Index of the founder within `team`, so the carousel always opens on them
+// regardless of where they sit in the data array. Falls back to the first
+// card if no founder tag is found.
+function founderIndex(list) {
+  const i = list.findIndex((m) => m.tag && m.tag.toLowerCase() === "founder");
+  return i === -1 ? 0 : i;
+}
+
 export default function TeamSection() {
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const timerRef = useRef(null);
   const len = team.length;
+  const startIndex = founderIndex(team);
+
+  const [active, setActive] = useState(startIndex);
+  const [paused, setPaused] = useState(false);
+  const [inView, setInView] = useState(false);
+  const timerRef = useRef(null);
+  const sectionRef = useRef(null);
 
   const goTo = useCallback((i) => setActive(((i % len) + len) % len), [len]);
   const next = useCallback(() => goTo(active + 1), [active, goTo]);
   const prev = useCallback(() => goTo(active - 1), [active, goTo]);
 
+  // Watch when the "Our Team" section actually enters the viewport. Every
+  // time it does, jump back to the founder's card first — so no matter how
+  // long it took the user to scroll here, or whether they scroll away and
+  // back again, the founder is always the first thing they see.
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setActive(startIndex);
+          setInView(true);
+        } else {
+          setInView(false);
+        }
+      },
+      { threshold: 0.35 }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [startIndex]);
+
   // Auto-advance every 5–10s; pausing (cursor over the card / a nav control)
   // stops it entirely rather than just delaying the next tick, and it
-  // restarts cleanly whenever `active` changes or paused toggles off.
+  // restarts cleanly whenever `active` changes or paused toggles off. It
+  // also only runs while the section is in view, so it can't quietly
+  // advance past the founder before the user ever sees the section.
   useEffect(() => {
-    if (paused) return undefined;
+    if (paused || !inView) return undefined;
     timerRef.current = setInterval(() => {
       setActive((a) => (a + 1) % len);
     }, AUTO_ADVANCE_MS);
     return () => clearInterval(timerRef.current);
-  }, [paused, len]);
+  }, [paused, inView, len]);
 
   return (
-    <section className="section" id="team">
+    <section className="section" id="team" ref={sectionRef}>
       <div className="section-pad">
         <div className="section-head">
           <div className="section-tag"><div className="dot" /><span>LEADERSHIP &amp; ENGINEERING</span></div>
