@@ -96,12 +96,15 @@ export default function BaConsultModal() {
               <div className="char-count"><span>{messageLen}</span>/500</div>
               <div className="field-err">{errors.message?.message}</div>
             </div>
+
+            {/* FIX: submit button moved inside the <form> — it previously lived in
+                .modal-foot below, connected only via the cross-element form="baConsultForm"
+                attribute, which was unreliable and caused the button to intermittently
+                do nothing when clicked. */}
+            <button type="submit" className="ba-consult-submit" disabled={isSubmitting}>
+              <span>{isSubmitting ? "Sending…" : "Request consultation"}</span>
+            </button>
           </form>
-        </div>
-        <div className="modal-foot">
-          <button type="submit" form="baConsultForm" disabled={isSubmitting}>
-            <span>{isSubmitting ? "Sending…" : "Request consultation"}</span>
-          </button>
         </div>
       </div>
     </div>
