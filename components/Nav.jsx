@@ -34,6 +34,7 @@ export default function Nav({ onOpenServiceDetail }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDrop, setOpenDrop] = useState(null);
   const [profileOpen, setProfileOpen] = useState(false);
+  const profileRef = useRef(null); // FIX: lets the outside-click check below test click position directly instead of depending on stopPropagation
   const { openTerms, openPrivacy, openDeleteConfirm } = useModals();
   const { user, signOutUser } = useAuth();
 
@@ -46,10 +47,21 @@ export default function Nav({ onOpenServiceDetail }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // FIX: Next.js App Router hydrates React onto `document` itself, so
+  // React's own delegated click handling lives on the same node this
+  // listener is on. stopPropagation() on a wrapper div only stops an event
+  // from reaching *other* elements — it can't stop a second listener that's
+  // also registered directly on `document`. Previously that meant every
+  // click on the profile avatar opened the menu and then this same listener
+  // immediately closed it again in the same click. Checking the click
+  // target against profileRef fixes that regardless of where React's root
+  // event listener lives.
   useEffect(() => {
-    function onDocClick() {
+    function onDocClick(e) {
+      if (profileRef.current && !profileRef.current.contains(e.target)) {
+        setProfileOpen(false);
+      }
       setOpenDrop(null);
-      setProfileOpen(false);
     }
     document.addEventListener("click", onDocClick);
     return () => document.removeEventListener("click", onDocClick);
@@ -133,7 +145,7 @@ export default function Nav({ onOpenServiceDetail }) {
           )}
 
           {user && (
-            <div className="profile-wrap visible" onClick={(e) => e.stopPropagation()}>
+            <div className="profile-wrap visible" ref={profileRef} onClick={(e) => e.stopPropagation()}>
               <button
                 className="profile-avatar"
                 aria-label="Account menu"
