@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import BrandMark from "./BrandMark";
 import { useAuth } from "@/context/AuthContext";
@@ -28,6 +28,7 @@ export default function SignInPage() {
 
   const [tab, setTab] = useState("signin");
   const [redirecting, setRedirecting] = useState(false);
+  const redirectStarted = useRef(false); // FIX: guards the effect below without being a dependency of it
   const [oauthBusy, setOauthBusy] = useState(false);
 
   const [si, setSi] = useState({ email: "", password: "", remember: false });
@@ -44,13 +45,21 @@ export default function SignInPage() {
   // Mirrors the old site's onAuthStateChanged-driven redirect: as soon as a
   // session exists (fresh sign-in, or one already persisted from a prior
   // visit), show the success card and send them back to the homepage.
+  //
+  // FIX: previously this effect depended on `redirecting` state. Because the
+  // effect itself called setRedirecting(true), that state change re-ran the
+  // effect immediately and its cleanup (clearTimeout) cancelled the very
+  // timer that was supposed to call router.push("/") — so the redirect never
+  // fired. Using a ref instead of a dependency avoids that self-triggering
+  // loop while keeping the exact same 1500ms delay and success-view timing.
   useEffect(() => {
-    if (user && !redirecting) {
+    if (user && !redirectStarted.current) {
+      redirectStarted.current = true;
       setRedirecting(true);
       const t = setTimeout(() => router.push("/"), 1500);
       return () => clearTimeout(t);
     }
-  }, [user, redirecting, router]);
+  }, [user, router]);
 
   const strength = (() => {
     const v = su.password;
