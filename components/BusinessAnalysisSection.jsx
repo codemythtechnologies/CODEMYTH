@@ -98,7 +98,7 @@ export default function BusinessAnalysisSection({ onOpenBAConsult }) {
     const start = performance.now();
     const tick = (now) => {
       const p = Math.min(1, (now - start) / 1300);
-      setTrendPct(Math.round(p * 100));
+      setTrendPct(Math.round(p * 979) / 10); // animates up to 97.9%, matching the real on-time stat
       if (p < 1) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -238,7 +238,7 @@ export default function BusinessAnalysisSection({ onOpenBAConsult }) {
                 <text x="118" y="136" fontFamily="Inter, Arial, sans-serif" fontSize="9" fill="#9c9ca3">Q3</text>
                 <text x="168" y="136" fontFamily="Inter, Arial, sans-serif" fontSize="9" fill="#9c9ca3">Q4</text>
                 <text x="210" y="136" fontFamily="Inter, Arial, sans-serif" fontSize="9" fill="#9c9ca3">Q5</text>
-                <text x="196" y="20" fontFamily="Space Grotesk, Arial, sans-serif" fontSize="13" fontWeight="700" fill="#f5f5f4">{trendPct}%</text>
+                <text x="196" y="20" fontFamily="Space Grotesk, Arial, sans-serif" fontSize="13" fontWeight="700" fill="#f5f5f4">{trendPct.toFixed(1)}%</text>
               </svg>
             </div>
 

@@ -39,6 +39,7 @@ export default function TeamSection() {
   const [active, setActive] = useState(startIndex);
   const [paused, setPaused] = useState(false);
   const [inView, setInView] = useState(false);
+  const [hoverLift, setHoverLift] = useState(false);
   const timerRef = useRef(null);
   const sectionRef = useRef(null);
 
@@ -105,18 +106,21 @@ export default function TeamSection() {
               const translateX = offset * 260;
               const scale = Math.max(1 - abs * 0.14, 0.68);
               const blur = abs === 0 ? 0 : Math.min(abs * 2, 4);
+              const lift = isActive && hoverLift ? -12 : 0;
               return (
                 <div
                   key={m.name}
                   className={`team-slide${isActive ? " is-active" : ""}${m.tag ? " is-founder" : ""}`}
                   style={{
-                    transform: `translate(-50%, -50%) translateX(${translateX}px) scale(${scale})`,
+                    transform: `translate(-50%, -50%) translateX(${translateX}px) translateY(${lift}px) scale(${scale})`,
                     filter: blur ? `blur(${blur}px)` : "none",
                     zIndex: 10 - abs,
                     opacity: hidden ? 0 : 1 - abs * 0.28,
                     pointerEvents: isActive ? "auto" : "none",
                   }}
                   aria-hidden={!isActive}
+                  onMouseEnter={() => { if (isActive) setHoverLift(true); }}
+                  onMouseLeave={() => { if (isActive) setHoverLift(false); }}
                 >
                   <div className="team-slide-top">
                     <div className="team-slide-avatar"><PersonIcon variant={m.icon} /></div>
