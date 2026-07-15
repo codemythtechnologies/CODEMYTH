@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { baConsultSchema } from "@/lib/schemas";
+import { baConsultSchema, baConsultClientSchema } from "@/lib/schemas";
 import { useModals } from "@/context/ModalsContext";
 import { useToast } from "@/context/ToastContext";
 
@@ -15,7 +15,7 @@ export default function BaConsultModal() {
     reset,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm({ resolver: zodResolver(baConsultSchema), defaultValues: { message: "" } });
+  } = useForm({ resolver: zodResolver(baConsultClientSchema), defaultValues: { message: "" } });
 
   const messageLen = (watch("message") || "").length;
 

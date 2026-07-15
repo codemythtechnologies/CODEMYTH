@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { contactSchema } from "@/lib/schemas";
+import { contactSchema, contactClientSchema } from "@/lib/schemas";
 import { useToast } from "@/context/ToastContext";
 import { useSiteActions } from "@/lib/useSiteActions";
 import Reveal from "./Reveal";
@@ -16,7 +16,7 @@ export default function ContactSection() {
     reset,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm({ resolver: zodResolver(contactSchema), defaultValues: { stage: "", need: "", message: "" } });
+  } = useForm({ resolver: zodResolver(contactClientSchema), defaultValues: { stage: "", need: "", message: "" } });
 
   const messageLen = (watch("message") || "").length;
 
