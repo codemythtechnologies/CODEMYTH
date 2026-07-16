@@ -25,7 +25,18 @@ export async function POST(request) {
   if (!parsed.success) {
     // Honeypot tripped -> pretend success so bots don't learn anything,
     // but don't actually save/send.
+    //
+    // NOTE: if this fires for a real user, it's almost always browser
+    // autofill silently filling the hidden company_website field, not an
+    // actual bot. See the fix in ContactSection.jsx (honeypot moved
+    // off-screen + renamed away from "company"/"website"). This log line
+    // is here so you can confirm in your server logs whether that's what's
+    // happening — remove it once you've verified the fix works.
     if (parsed.error.issues.some((i) => i.path[0] === "company_website")) {
+      console.warn(
+        "[contact] Honeypot tripped — likely autofill, not a bot. company_website value:",
+        body?.company_website
+      );
       return NextResponse.json({ ok: true });
     }
     return NextResponse.json(

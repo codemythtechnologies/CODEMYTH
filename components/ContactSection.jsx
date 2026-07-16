@@ -70,10 +70,40 @@ export default function ContactSection() {
         </Reveal>
 
         <Reveal as="form" className="contact-form" onSubmit={handleSubmit(onSubmit)} noValidate delay={0.1}>
-          {/* Honeypot — hidden from real users via CSS, bots that fill every field trip it */}
-          <div className="hp-field" aria-hidden="true">
-            <label htmlFor="cf-company">Company website</label>
-            <input id="cf-company" type="text" tabIndex={-1} autoComplete="off" {...register("company_website")} />
+          {/*
+            Honeypot field.
+            IMPORTANT: this must be invisible to real users AND to browser
+            autofill heuristics. A previous version used a visible label
+            "Company website" + a CSS-hidden wrapper class — Chrome/Edge
+            autofill still matched on that label text (it sits right next
+            to real Name/Email fields) and silently filled it in, which
+            made the SERVER'S honeypot check reject the submission and
+            return a fake "ok: true" (see route.js) — so users saw a
+            success toast but nothing was ever saved or emailed.
+            Fix: move the field off-screen with real positioning (autofill
+            engines respect actual visibility, not just CSS classes) and
+            avoid any label/name/id containing "company" or "website".
+          */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: "-9999px",
+              top: "-9999px",
+              height: 0,
+              width: 0,
+              overflow: "hidden",
+            }}
+          >
+            <label htmlFor="cf-hp">Leave this field empty</label>
+            <input
+              id="cf-hp"
+              name="hp_check"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              {...register("company_website")}
+            />
           </div>
 
           <Reveal as="div" className="field-row" delay={0.14}>
