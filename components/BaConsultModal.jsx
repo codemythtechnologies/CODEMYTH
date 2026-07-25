@@ -50,9 +50,9 @@ export default function BaConsultModal() {
         <div className="modal-body">
           <p>Tell us about your project and a Business Analyst from our team will get back to you within 24 hours.</p>
           <form id="baConsultForm" onSubmit={handleSubmit(onSubmit)} noValidate>
-            <div className="hp-field" aria-hidden="true">
-              <label htmlFor="ba-company-web">Company website</label>
-              <input id="ba-company-web" type="text" tabIndex={-1} autoComplete="off" {...register("company_website")} />
+            <div className="hp-field" aria-hidden="true" style={{ position: "absolute", left: "-9999px", top: "-9999px" }}>
+              <label htmlFor="ba-hp">Leave this field empty</label>
+              <input id="ba-hp" type="text" tabIndex={-1} autoComplete="off" {...register("hp_field")} />
             </div>
 
             <div className="field-row">

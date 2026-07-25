@@ -23,7 +23,11 @@ export async function POST(request) {
 
   const parsed = baConsultSchema.safeParse(body);
   if (!parsed.success) {
-    if (parsed.error.issues.some((i) => i.path[0] === "company_website")) {
+    if (parsed.error.issues.some((i) => i.path[0] === "hp_field")) {
+      console.warn(
+        "[ba-consult] Honeypot tripped - likely autofill, not a bot. hp_field value:",
+        body?.hp_field
+      );
       return NextResponse.json({ ok: true });
     }
     return NextResponse.json(
