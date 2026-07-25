@@ -73,9 +73,9 @@ const HBARS = [
 
 const CLIENT_POINTS = [
   "Structured MVP roadmaps & go-to-market plans for early-stage founders preparing to build or raise",
-  "Successfully delivered validation & documentation projects for Mankind Pharma",
-  "Completed project engagement with Alkem Pharma",
-  "Consistent on-time delivery record across every engagement, startup or enterprise",
+  "Founder-led team with hands-on full stack, AI, and product-scoping experience — not outsourced to junior analysts",
+  "Every engagement gets a single dedicated point of contact from kickoff to sign-off, no account-manager layers",
+  "Consistent on-time delivery record across every engagement, from first idea to build-ready documentation",
 ];
 
 const BA_STATS = [
@@ -262,7 +262,7 @@ export default function BusinessAnalysisSection({ onOpenBAConsult }) {
         <Reveal className="ba-team">
           <div className="ba-team-copy" style={{ maxWidth: "none" }}>
             <div className="ba-eyebrow">Client experience</div>
-            <h3>Trusted from first-time founders to global pharma enterprises</h3>
+            <h3>Trusted by first-time founders and early-stage teams building for real users</h3>
             <ul className="ba-client-points">
               {CLIENT_POINTS.map((p) => (
                 <li key={p}>{CHECK_SM}{p}</li>

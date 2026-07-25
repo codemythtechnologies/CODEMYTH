@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema, contactClientSchema } from "@/lib/schemas";
@@ -7,9 +8,20 @@ import { useToast } from "@/context/ToastContext";
 import { useSiteActions } from "@/lib/useSiteActions";
 import Reveal from "./Reveal";
 
+const CONTACT_EMAILS = [
+  { label: "Primary", value: "info@codemyth.in" },
+  { label: "Secondary", value: "codemyth.technologies@gmail.com" },
+];
+
+const CONTACT_PHONES = [
+  { label: "Primary", value: "+91 7397703202", href: "tel:+917397703202" },
+  { label: "Secondary", value: "+91 9384279015", href: "tel:+919384279015" },
+];
+
 export default function ContactSection() {
   const showToast = useToast();
   const { copyEmail } = useSiteActions();
+  const [emailPickerOpen, setEmailPickerOpen] = useState(false);
   const {
     register,
     handleSubmit,
@@ -36,6 +48,16 @@ export default function ContactSection() {
     }
   }
 
+  async function copySelectedEmail(email) {
+    try {
+      await navigator.clipboard.writeText(email);
+      showToast("Email copied", email, "success");
+    } catch {
+      showToast("Couldn't copy", "Please copy the email manually.", "info");
+    }
+    setEmailPickerOpen(false);
+  }
+
   return (
     <section className="section" id="contact">
       <div className="contact">
@@ -44,10 +66,83 @@ export default function ContactSection() {
           <p>Tell us about your project. We respond within 24 hours and offer a free consultation call.</p>
 
           <div className="contact-info">
-            <button type="button" className="contact-item clickable" onClick={copyEmail}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16v16H4z" opacity="0" /><path d="M22 6l-10 7L2 6" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg>
-              codemyth.technologies@gmail.com
-            </button>
+            <div style={{ position: "relative" }}>
+              <button
+                type="button"
+                className="contact-item clickable"
+                onClick={() => setEmailPickerOpen((v) => !v)}
+                aria-expanded={emailPickerOpen}
+                aria-haspopup="listbox"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4h16v16H4z" opacity="0" /><path d="M22 6l-10 7L2 6" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg>
+                {CONTACT_EMAILS[0].value}
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{ width: 12, height: 12, marginLeft: 6, transition: "transform .2s var(--ease)", transform: emailPickerOpen ? "rotate(180deg)" : "none" }}
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+
+              {emailPickerOpen && (
+                <div
+                  role="listbox"
+                  aria-label="Choose an email to copy"
+                  style={{
+                    position: "absolute",
+                    top: "calc(100% + 6px)",
+                    left: 0,
+                    zIndex: 20,
+                    minWidth: 260,
+                    background: "var(--bg-elevated, #14141a)",
+                    border: "1px solid var(--border, rgba(255,255,255,0.12))",
+                    borderRadius: 10,
+                    padding: 6,
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
+                  }}
+                >
+                  {CONTACT_EMAILS.map((e) => (
+                    <button
+                      key={e.value}
+                      type="button"
+                      role="option"
+                      onClick={() => copySelectedEmail(e.value)}
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "flex-start",
+                        width: "100%",
+                        padding: "8px 10px",
+                        background: "transparent",
+                        border: "none",
+                        borderRadius: 6,
+                        cursor: "pointer",
+                        textAlign: "left",
+                      }}
+                      onMouseEnter={(ev) => (ev.currentTarget.style.background = "rgba(255,255,255,0.06)")}
+                      onMouseLeave={(ev) => (ev.currentTarget.style.background = "transparent")}
+                    >
+                      <span style={{ fontSize: 10, letterSpacing: 0.4, textTransform: "uppercase", opacity: 0.55 }}>{e.label}</span>
+                      <span style={{ fontSize: 13 }}>{e.value}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {CONTACT_PHONES.map((p) => (
+              <a key={p.value} className="contact-item clickable" href={p.href}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+                {p.value}
+                <span style={{ marginLeft: 6, fontSize: 10, letterSpacing: 0.4, textTransform: "uppercase", opacity: 0.55 }}>{p.label}</span>
+              </a>
+            ))}
+
             <div className="contact-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
               Siruseri, Chennai — Remote worldwide
@@ -63,7 +158,7 @@ export default function ContactSection() {
           </div>
 
           <div className="social-row">
-            <a className="icon-btn" href="mailto:codemyth.technologies@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 16, height: 16 }}><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M22 6l-10 7L2 6" /></svg></a>
+            <a className="icon-btn" href="mailto:info@codemyth.in" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 16, height: 16 }}><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M22 6l-10 7L2 6" /></svg></a>
             <a className="icon-btn" href="https://github.com/codemythtechnologies" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 16, height: 16 }}><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.7.1-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.9 2.9 1.3 3.6 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6a4.6 4.6 0 0 1 1.3-3.2 4.3 4.3 0 0 1 .1-3.2s1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2a4.3 4.3 0 0 1 .1 3.2 4.6 4.6 0 0 1 1.3 3.2c0 4.7-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z" /></svg></a>
             <a className="icon-btn" href="https://www.linkedin.com/company/code-myth-technologies" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" style={{ width: 16, height: 16 }}><path d="M20.4 20.4h-3.5v-5.6c0-1.3 0-3-1.9-3s-2.1 1.5-2.1 3v5.6H9.4V9h3.4v1.6h.1c.5-.9 1.6-1.9 3.3-1.9 3.6 0 4.2 2.4 4.2 5.4v6.3zM5.3 7.4a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM7 20.4H3.6V9H7v11.4z" /></svg></a>
           </div>
