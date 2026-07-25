@@ -45,7 +45,7 @@ export async function POST(request) {
     );
   }
 
-  const { name, email, message, stage, need } = parsed.data;
+  const { name, email, phone, message, stage, need } = parsed.data;
 
   let savedToDb = false;
   let emailSent = false;
@@ -56,6 +56,7 @@ export async function POST(request) {
       await db.collection("contacts").add({
         name,
         email,
+        phone,
         message,
         stage,
         need,
@@ -64,6 +65,10 @@ export async function POST(request) {
         timestamp: new Date(),
       });
       savedToDb = true;
+    } else {
+      console.warn(
+        "[contact] getAdminDb() returned null — FIREBASE_ADMIN_PROJECT_ID / FIREBASE_ADMIN_CLIENT_EMAIL / FIREBASE_ADMIN_PRIVATE_KEY are not set in this environment, so nothing was saved to Firestore."
+      );
     }
   } catch (err) {
     console.error("Firestore save failed:", err);
@@ -73,9 +78,9 @@ export async function POST(request) {
     const result = await sendNotificationEmail({
       subject: `Contact Form — ${need || "General Enquiry"}`,
       replyTo: email,
-      text: `From: ${name}\nEmail: ${email}\nStage: ${stage || "Not specified"}\nNeed: ${
-        need || "Not specified"
-      }\n\nMessage:\n${message}`,
+      text: `From: ${name}\nEmail: ${email}\nPhone: ${phone || "Not provided"}\nStage: ${
+        stage || "Not specified"
+      }\nNeed: ${need || "Not specified"}\n\nMessage:\n${message}`,
     });
     emailSent = result.sent;
   } catch (err) {
