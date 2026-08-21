@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---- Ported from the emergent.sh reference build (index.css) ---- */
+
+::selection {
+  background: #ff5500;
+  color: #fff;
+}
+
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 1;
+}
+
+.tech-grid {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+.tech-grid-dark {
+  background-image: linear-gradient(to right, rgba(17, 25, 28, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(17, 25, 28, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .emergent-scope * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---- Hero "code workspace" background (CodeWorkspaceBG.jsx) ---- */
+
+/* NOTE: the editor + terminal no longer use a CSS translateY loop (that
+   read as "scrolling text repeating itself"). Both are now driven from
+   JS as a real typewriter — characters are revealed one at a time, a
+   line is only ever committed once, and old committed lines are trimmed
+   from the array (not replayed) as new ones are typed below. See
+   CodeWorkspaceBG.jsx for the reveal loop. */
+
+/* Caret / cursor blink, reused across the fake editor and terminal. */
+@keyframes cwBlink {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.cw-caret {
+  animation: cwBlink 1s step-end infinite;
+}
+
+/* Gentle float for the floating "AI Copilot" panel so the background
+   reads as alive rather than a static screenshot. */
+@keyframes cwFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.cw-float {
+  animation: cwFloat 6s ease-in-out infinite;
+}
+
+/* Typing dots inside the AI Copilot panel. */
+@keyframes cwDot {
+  0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-2px); }
+}
+.cw-dot {
+  animation: cwDot 1.2s ease-in-out infinite;
+}
+
+/* Soft pulse on the "live build" status indicator. */
+@keyframes cwPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.55); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); }
+}
+.cw-pulse {
+  animation: cwPulse 2s ease-in-out infinite;
+}
+
+/* Progress bar creeping forward inside a build/task row. */
+@keyframes cwProgress {
+  0% { width: 8%; }
+  50% { width: 78%; }
+  100% { width: 8%; }
+}
+.cw-progress {
+  animation: cwProgress 5s ease-in-out infinite;
+}
+
+/* Freshly-committed line/log-row settles in rather than popping —
+   plays once per row, per row (not looped). */
+@keyframes cwLineIn {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.cw-line-in {
+  animation: cwLineIn 0.22s ease-out both;
+}
