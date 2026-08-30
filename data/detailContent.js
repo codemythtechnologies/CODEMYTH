@@ -238,7 +238,9 @@ const workEntries = WORK.map((p) =>
   buildEntry({
     category: "project", sectionId: "work", no: undefined,
     eyebrow: `${p.industry} · ${p.tag}`, title: p.title, desc: p.desc, long: p.desc,
-    second: `${p.title} is ${p.status === "Live" ? "live in production today" : "currently in active development"}. It was built the same way every CodeMyth project is: scoped honestly, built by a senior owner end to end, and shipped with real monitoring — not left as a prototype.`,
+    second:
+      p.story ||
+      `${p.title} is ${p.status === "Live" ? "live in production today" : "currently in active development"}. It was built the same way every CodeMyth project is: scoped honestly, built by a senior owner end to end, and shipped with real monitoring — not left as a prototype.`,
     stack: p.tech,
     steps: [
       { title: "Scope & validate", desc: "The core workflow mapped and validated before a line of code was written." },

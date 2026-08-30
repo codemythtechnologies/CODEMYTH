@@ -406,6 +406,24 @@ export const INDUSTRIES = [
 
 export const WORK = [
   {
+    title: "Renaissance Management Consultants", tag: "Recruitment & staffing website", status: "Live",
+    desc: "A polished, credibility-first website for a 24+ year old manpower recruitment and staffing agency — CodeMyth's very first client engagement, taken from brief to a live, shipped product.",
+    tech: ["Next.js", "React", "Vercel"],
+    industry: "Staffing",
+    img: "/assets/projects/renaissance.png",
+    story:
+      "This was our first-ever client engagement at CodeMyth. Renaissance Management Consultants came to us as an established staffing agency with 24+ years in the industry, but no real digital presence to match that track record — so the brief was straightforward but the stakes were personal: our first paying client, and our first live production deploy. We started with a short discovery conversation to understand how the agency actually pitches itself to both candidates and hiring companies, then designed and built a Next.js site around that trust-first positioning — fast, clean, and easy to navigate on any device. We handled everything ourselves end to end: layout, copy structure, responsive behaviour, and deployment to production. Shipping this taught us our process actually works outside of a portfolio sandbox, and it's still live today.",
+  },
+  {
+    title: "Stupid Studios", tag: "Filmmaker portfolio website", status: "Live",
+    desc: "A dark, cinematic portfolio site for an independent Tamil short-film collective — one of CodeMyth's first two shipped client projects.",
+    tech: ["Next.js", "React", "Vercel"],
+    industry: "Media & Entertainment",
+    img: "/assets/projects/stupid-studios.png",
+    story:
+      "Stupid Studios is an independent Tamil short-film collective that needed a portfolio as confident as their films. Alongside Renaissance, this was one of the first two projects we shipped for real clients, and it pushed us in a different direction creatively — instead of a trust-and-credibility layout, the brief called for something dark, cinematic, and visually bold enough to let the film work take centre stage. We built it in Next.js with a deliberately minimal UI so nothing competed with the reels and stills themselves, then deployed it live on Vercel. It's a small site, but it's real, shipped, and still up — proof that our very first client work wasn't a fluke.",
+  },
+  {
     title: "Curalink", tag: "AI medical research assistant", status: "Live",
     desc: "Fetches 100+ research papers per query with citation-backed AI responses — a production research assistant for medical teams.",
     tech: ["React", "Node.js", "DeepSeek-R1", "MongoDB", "Ollama"],
@@ -521,6 +539,8 @@ export const SOLUTIONS = [
 ];
 
 export const SHOWCASE = [
+  { title: "Renaissance Management Consultants", cat: "Staffing · Live", desc: "Recruitment & staffing agency website — CodeMyth's first shipped client project.", tech: ["Next.js", "Vercel"], img: "/assets/projects/renaissance.png" },
+  { title: "Stupid Studios", cat: "Media · Live", desc: "Cinematic portfolio for a Tamil short-film collective — one of our first two client builds.", tech: ["Next.js", "Vercel"], img: "/assets/projects/stupid-studios.png" },
   { title: "Curalink", cat: "HealthTech · AI", desc: "Citation-backed medical research assistant.", tech: ["React", "DeepSeek-R1"], img: "https://images.unsplash.com/photo-1582560469781-1965b9af903d?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200" },
   { title: "Habit Tracker", cat: "Consumer", desc: "A clean habit-tracking UI for daily streaks.", tech: ["React", "Vercel"], img: "https://images.unsplash.com/photo-1580894908361-967195033215?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200" },
   { title: "Nebula Glass", cat: "Design Sample", desc: "Immersive landing page with real-time animations and glassmorphism.", tech: ["HTML/CSS/JS"], img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?crop=entropy&cs=srgb&fm=jpg&q=85&w=1200" },
