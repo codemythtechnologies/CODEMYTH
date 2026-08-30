@@ -3,6 +3,37 @@
 // matching the "external content opens in a new tab" behavior you liked.
 export const projects = [
   {
+    key: "renaissance",
+    name: "Renaissance Management Consultants — recruitment & staffing site",
+    status: "Live",
+    statusClass: "",
+    featured: true,
+    summary: "A polished recruitment & staffing website for a 24+ year old manpower consultancy, shipped as CodeMyth's first client project.",
+    desc: [
+      "Renaissance Management Consultants is a manpower recruitment and staffing agency with over 24 years in the industry, built around the promise of finding \"the right candidate for the right position.\" This was our very first client engagement at CodeMyth Technologies, taken from brief to a live, shipped website.",
+      "We built a clean, professional presence that communicates trust and experience — the kind of site a staffing firm can confidently point candidates and hiring companies to. It was designed to be fast, credible, and easy to navigate for both job seekers and businesses looking to hire.",
+      "Shipping this project was a milestone for us: it proved out our process end-to-end, from client requirements to a production deployment our first client was happy to put their name on.",
+    ],
+    techs: ["Next.js", "React", "Vercel"],
+    url: "https://renaissance-management-rmc.vercel.app/",
+    image: "/assets/projects/renaissance.png",
+  },
+  {
+    key: "stupid-studios",
+    name: "Stupid Studios — filmmaker portfolio",
+    status: "Live",
+    statusClass: "",
+    featured: true,
+    summary: "A striking portfolio site for an independent Tamil short-film collective, built and shipped as one of CodeMyth's first client projects.",
+    desc: [
+      "Stupid Studios is an independent Tamil short-film collective that needed a portfolio worthy of their creative work. We designed and built a portfolio site to showcase their films and identity online, with a dark, cinematic feel that matches their creative voice.",
+      "As one of the first two projects CodeMyth Technologies shipped for a real client, this build helped shape how we approach portfolio and creative-industry sites: fast, visually confident, and centered on letting the work speak for itself.",
+    ],
+    techs: ["Next.js", "React", "Vercel"],
+    url: "https://stupid-studios-five.vercel.app/",
+    image: "/assets/projects/stupid-studios.png",
+  },
+  {
     key: "curalink",
     name: "Curalink — AI medical research assistant",
     status: "Live",
