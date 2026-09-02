@@ -7,6 +7,7 @@ import ParticleField from "./ParticleField";
 import { PROCESS, WHY, TEAM, INSIGHTS, CONTACT } from "@/data/emergentContent";
 import { slugify } from "@/data/detailContent";
 import { Reveal, SectionHeader, Eyebrow } from "./ui";
+import SmartImg from "./SmartImg";
 import { scrollToSection } from "@/lib/useSiteActions";
 
 const ease = [0.22, 1, 0.36, 1];
@@ -85,8 +86,7 @@ export const Team = () => (
           <Reveal key={m.name} delay={(i % 4) * 0.06}>
             <div className="group" data-testid={`team-${i}`}>
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-cm-border">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={m.img} alt={m.name} loading="lazy" className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0" />
+                <SmartImg src={m.img} alt={m.name} width={800} height={1000} loading="lazy" className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0" />
               </div>
               <h3 className="mt-4 font-display text-xl font-bold tracking-tight text-cm-text transition-transform duration-300 group-hover:translate-x-1">{m.name}</h3>
               <p className="mt-1 text-sm font-bold text-cm-accent">{m.role}</p>
@@ -154,12 +154,15 @@ export const FinalCTA = () => (
 );
 
 /* 18 — FOOTER */
-export const Footer = ({ onOpenTerms, onOpenPrivacy }) => {
-  // Footer links are pointers, same as the nav mega-menus: clicking one
-  // scrolls back up to where that content is actually listed on the page
-  // (its section on the homepage) rather than jumping straight to a full
-  // detail page. The person sees it in context first, then opens the full
-  // write-up themselves via that section's own "Read more" link.
+// SEO/accessibility fix: every one of these was a <button onClick> with no
+// href at all — not a link to the wrong place, but nothing crawlable or
+// keyboard-focusable-as-a-link whatsoever. That's why the audit found zero
+// About/Contact/Privacy/Terms of Service links even though the content
+// exists on the page: crawlers only see <a href>, not onClick handlers.
+// Now real <a href="#section"> anchors (still smooth-scrolled via
+// onClick, progressively enhanced) so they're indexable and usable
+// without JS, plus real page links for Privacy/Terms.
+export const Footer = () => {
   const cols = [
     {
       head: "Services", sectionId: "capabilities",
@@ -188,11 +191,10 @@ export const Footer = ({ onOpenTerms, onOpenPrivacy }) => {
         <div className="grid gap-12 border-b border-white/10 pb-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-2.5">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo-icon.png" alt="" className="h-6 w-auto" />
+              <SmartImg src="/logo-icon.png" alt="" width={910} height={333} className="h-6 w-auto" />
               <span className="flex flex-col leading-none">
                 <span className="font-display text-base font-extrabold tracking-tight text-white">CodeMyth</span>
-                <span className="mt-0.5 text-[8px] font-bold uppercase tracking-[0.28em] text-white/50">Technologies</span>
+                <span className="mt-0.5 text-[11px] font-bold uppercase tracking-[0.28em] text-white/50">Technologies</span>
               </span>
             </div>
             <p className="mt-5 max-w-xs text-sm text-white/70">Remote-first IT studio building full-stack web apps, AI products and custom software — fast, clean, production-ready.</p>
@@ -207,9 +209,13 @@ export const Footer = ({ onOpenTerms, onOpenPrivacy }) => {
                   const sectionId = typeof l === "string" ? c.sectionId : l.sectionId;
                   return (
                     <li key={label}>
-                      <button onClick={() => scrollToSection(sectionId)} className="text-left text-sm text-white/60 transition-colors hover:text-cm-accent">
+                      <a
+                        href={`#${sectionId}`}
+                        onClick={(e) => { e.preventDefault(); scrollToSection(sectionId); }}
+                        className="text-left text-sm text-white/60 transition-colors hover:text-cm-accent"
+                      >
                         {label}
-                      </button>
+                      </a>
                     </li>
                   );
                 })}
@@ -220,16 +226,16 @@ export const Footer = ({ onOpenTerms, onOpenPrivacy }) => {
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/40">Connect</p>
             <ul className="mt-5 space-y-3">
               <li><a href={`mailto:${CONTACT.email}`} className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-cm-accent transition-colors"><Mail className="h-4 w-4" /> Email</a></li>
-              <li><a href={CONTACT.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-cm-accent transition-colors"><LinkedinIcon className="h-4 w-4" /> LinkedIn</a></li>
-              <li><a href={CONTACT.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-cm-accent transition-colors"><GithubIcon className="h-4 w-4" /> GitHub</a></li>
+              <li><a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-cm-accent transition-colors"><LinkedinIcon className="h-4 w-4" /> LinkedIn</a></li>
+              <li><a href={CONTACT.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-cm-accent transition-colors"><GithubIcon className="h-4 w-4" /> GitHub</a></li>
             </ul>
           </div>
         </div>
         <div className="flex flex-col items-start justify-between gap-4 pt-8 md:flex-row md:items-center">
           <p className="text-sm text-white/40">© {new Date().getFullYear()} CodeMyth Technologies. All rights reserved.</p>
           <div className="flex gap-6 text-sm text-white/40">
-            <button onClick={onOpenPrivacy} className="hover:text-white transition-colors">Privacy</button>
-            <button onClick={onOpenTerms} className="hover:text-white transition-colors">Terms</button>
+            <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+            <Link href="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

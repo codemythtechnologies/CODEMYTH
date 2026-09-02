@@ -9,6 +9,7 @@ import { NAV } from "@/data/emergentContent";
 import { scrollToSection } from "@/lib/useSiteActions";
 import { useModals } from "@/context/ModalsContext";
 import { useAuth, initialsFor } from "@/context/AuthContext";
+import SmartImg from "./SmartImg";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -25,17 +26,20 @@ const Logo = ({ dark }) => (
     onClick={(e) => { e.preventDefault(); scrollToSection("home"); }}
     className="flex shrink-0 items-center gap-2.5"
   >
-    {/* eslint-disable-next-line @next/next/no-img-element */}
-    <img
+    <SmartImg
       src={dark ? "/logo-icon.png" : "/logo-icon-dark.png"}
       alt=""
+      width={910}
+      height={333}
+      loading="eager"
+      fetchPriority="high"
       className="h-5 w-auto md:h-6"
     />
     <span className="flex flex-col leading-none">
       <span className="font-display text-base font-extrabold tracking-tight text-white md:text-lg">
         CodeMyth
       </span>
-      <span className="mt-0.5 text-[8px] font-bold uppercase tracking-[0.28em] text-white/60 md:text-[9px]">
+      <span className="mt-0.5 text-[12px] font-bold uppercase tracking-[0.2em] text-white/60">
         Technologies
       </span>
     </span>
@@ -49,7 +53,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(null);
   const [profileOpen, setProfileOpen] = useState(false);
   const profileRef = useRef(null);
-  const { openTerms, openPrivacy, openDeleteConfirm } = useModals();
+  const { openDeleteConfirm } = useModals();
   const { user, signOutUser } = useAuth();
   const router = useRouter();
 
@@ -209,12 +213,12 @@ export default function Navbar() {
                           <div className="truncate text-xs text-cm-muted">{user.email || ""}</div>
                         </div>
                       </div>
-                      <button role="menuitem" onClick={() => { openPrivacy(); setProfileOpen(false); }} className="block w-full px-4 py-3 text-left text-sm text-cm-text hover:bg-cm-text/5">
+                      <Link href="/privacy-policy" role="menuitem" onClick={() => setProfileOpen(false)} className="block w-full px-4 py-3 text-left text-sm text-cm-text hover:bg-cm-text/5">
                         Privacy &amp; data
-                      </button>
-                      <button role="menuitem" onClick={() => { openTerms(); setProfileOpen(false); }} className="block w-full px-4 py-3 text-left text-sm text-cm-text hover:bg-cm-text/5">
+                      </Link>
+                      <Link href="/terms-of-service" role="menuitem" onClick={() => setProfileOpen(false)} className="block w-full px-4 py-3 text-left text-sm text-cm-text hover:bg-cm-text/5">
                         Terms &amp; Conditions
-                      </button>
+                      </Link>
                       <div className="border-t border-cm-border" />
                       <button role="menuitem" onClick={() => { openDeleteConfirm(); setProfileOpen(false); }} className="block w-full px-4 py-3 text-left text-sm font-semibold text-red-500 hover:bg-red-500/5">
                         Delete account
@@ -363,8 +367,8 @@ export default function Navbar() {
                   <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Signed in as</div>
                   <div className="mt-1 break-all text-sm text-white/70">{user.email}</div>
                   <div className="mt-4 flex flex-col gap-3 text-sm">
-                    <button onClick={() => { openPrivacy(); setMobile(false); }} className="text-left text-white/60">Privacy &amp; data</button>
-                    <button onClick={() => { openTerms(); setMobile(false); }} className="text-left text-white/60">Terms &amp; Conditions</button>
+                    <Link href="/privacy-policy" onClick={() => setMobile(false)} className="text-left text-white/60">Privacy &amp; data</Link>
+                    <Link href="/terms-of-service" onClick={() => setMobile(false)} className="text-left text-white/60">Terms &amp; Conditions</Link>
                     <button onClick={() => { openDeleteConfirm(); setMobile(false); }} className="text-left font-semibold text-red-400">Delete account</button>
                     <button onClick={() => { signOutUser(); setMobile(false); }} className="text-left font-semibold text-red-400">Log out</button>
                   </div>

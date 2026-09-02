@@ -3980,3 +3980,23 @@
   .signin-card-inner { padding: 22px 18px 24px; }
   .oauth-row { flex-direction: column; }
 }
+/* Skip-to-content link (accessibility fix — SEOmator: "Skip Navigation
+   Link" warning). Hidden off-screen until keyboard-focused, then pinned
+   to the top so it's immediately visible and actionable. */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 12px;
+  z-index: 9999;
+  background: #111;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+.skip-to-content:focus {
+  top: 12px;
+}

@@ -34,10 +34,24 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.codemyth.in";
 
 export const metadata = {
-  title: "Code Myth Technologies — Building legendary code for the modern web",
+  // SEO fix: was 67 chars (Google/most tools recommend 30-60 so it doesn't
+  // get truncated in search results). Trimmed while keeping brand + the
+  // core value prop.
+  title: "Code Myth Technologies — Full-Stack & AI Software Studio",
   description:
     "Remote IT services company delivering full stack web apps, AI-powered solutions, and custom software — fast, clean, production-ready.",
   metadataBase: new URL(SITE_URL),
+  // SEO fix: page had no <link rel="canonical">, which SEOmator flagged as
+  // a failed check — without it, search engines have no explicit signal
+  // for which URL is the "real" one if the page is ever reachable via
+  // multiple paths (http/https, with/without www, ?query params, etc.).
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: "Code Myth Technologies",
     description:
@@ -98,6 +112,12 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
+        {/* Accessibility fix: SEOmator flagged no skip-to-content link.
+            Visually hidden until focused, so it doesn't affect layout but
+            lets keyboard/screen-reader users jump straight past the nav. */}
+        <a href="#main-content" className="skip-to-content">
+          Skip to content
+        </a>
         <ToastProvider>
           <AuthProvider>
             <ModalsProvider>{children}</ModalsProvider>

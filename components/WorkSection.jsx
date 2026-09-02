@@ -44,7 +44,7 @@ export default function WorkSection({ onOpenProject }) {
       <div className="work">
         <div className="work-left">
           <h2>Our recent work</h2>
-          <p>Every project we build is deployed, live, and production-ready. We don't build demos — we build real products.</p>
+          <p>Every project we build is deployed, live, and production-ready. We don’t build demos — we build real products.</p>
           <button className="btn btn-ghost" onClick={() => setOpen((v) => !v)}>
             <span>{open ? "Show fewer projects" : "View all projects"}</span>
             <svg

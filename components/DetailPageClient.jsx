@@ -14,8 +14,8 @@ import {
 import { relatedDetails } from "@/data/detailContent";
 import { CONTACT } from "@/data/emergentContent";
 import { Footer } from "@/components/emergent/Sections3";
+import SmartImg from "@/components/emergent/SmartImg";
 import TermsModal from "@/components/TermsModal";
-import { useModals } from "@/context/ModalsContext";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -73,7 +73,7 @@ function FAQItem({ q, a, defaultOpen }) {
 }
 
 export default function DetailPageClient({ entry }) {
-  const { openTerms, openPrivacy } = useModals();
+
   const Icon = ICONS[entry.slug] || (entry.category === "insight" ? Newspaper : Sparkles);
   const related = relatedDetails(entry, 3);
 
@@ -90,11 +90,10 @@ export default function DetailPageClient({ entry }) {
       <header className="sticky top-0 z-40 border-b border-cm-border bg-paper shadow-[0_1px_0_0_rgba(0,0,0,0.04)] backdrop-blur-xl">
         <div className="mx-auto flex h-20 max-w-site items-center justify-between px-6 md:px-12 lg:px-16">
           <Link href="/" className="flex items-center gap-3">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo-icon-dark.png" alt="Code Myth Technologies" className="h-8 w-auto" />
+            <SmartImg src="/logo-icon-dark.png" alt="Code Myth Technologies" width={910} height={333} loading="eager" fetchPriority="high" className="h-8 w-auto" />
             <span className="flex flex-col leading-none">
               <span className="font-display text-lg font-extrabold tracking-tight text-cm-text">CodeMyth</span>
-              <span className="text-[8px] font-bold uppercase tracking-[0.28em] text-cm-muted">Technologies</span>
+              <span className="text-[12px] font-bold uppercase tracking-[0.2em] text-cm-muted">Technologies</span>
             </span>
           </Link>
           <div className="flex items-center gap-3">
@@ -282,7 +281,7 @@ export default function DetailPageClient({ entry }) {
         </section>
       )}
 
-      <Footer onOpenTerms={openTerms} onOpenPrivacy={openPrivacy} />
+      <Footer />
       <TermsModal />
     </div>
   );
