@@ -1,0 +1,26 @@
+# Code Myth Technologies
+
+> Remote-first IT studio based in Chennai, India, building full-stack web
+> applications, AI-powered products, and custom software for startups,
+> SaaS, FinTech, EdTech, HealthTech, and internal business systems.
+
+Code Myth Technologies (CMT) provides full-stack engineering, AI
+engineering (RAG, LLM integration, AI agents, automation), API & backend
+development, business analysis / product counseling for early-stage
+founders, and ongoing support after launch. The team works remotely with
+clients worldwide, with a stated response time of 24 hours on new
+enquiries.
+
+## Company
+
+- Website: https://www.codemyth.in/
+- Contact: info@codemyth.in
+- LinkedIn: https://www.linkedin.com/company/code-myth-technologies
+- GitHub: https://github.com/codemythtechnologies
+- Registration: MSME UDYAM-PY-03-0057608
+
+## Pages
+
+- [Homepage](https://www.codemyth.in/): Services, capabilities, industries served, selected work, team, and FAQ.
+- [Privacy Policy](https://www.codemyth.in/privacy-policy): How client and visitor data is collected, used, and stored.
+- [Terms of Service](https://www.codemyth.in/terms-of-service): Terms governing use of the website, client portal, and project engagements.

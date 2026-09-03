@@ -20,7 +20,7 @@ export default function HomeClient() {
     <div className="page-shell emergent-scope">
       <Navbar />
 
-      <main>
+      <main id="main-content">
         <Hero />
         <TrustBand />
         <WhatWeDo />
@@ -49,7 +49,7 @@ export default function HomeClient() {
         <ContactSection />
       </main>
 
-      <Footer onOpenTerms={() => openTerms()} onOpenPrivacy={openPrivacy} />
+      <Footer />
 
       <BaConsultModal />
       <TermsModal />

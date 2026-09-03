@@ -577,7 +577,10 @@ export const PROCESS = [
     ],
   },
   {
-    no: "03", title: "QA", meta: "Quality Assurance · 2–5 days",
+    // SEO fix: heading text "QA" (2 chars) was flagged as too short by the
+    // audit. "QA & Testing" is more descriptive for both users and search
+    // engines, and still fits the step-card layout fine.
+    no: "03", title: "QA & Testing", meta: "Quality Assurance · 2–5 days",
     long: "A dedicated pass across devices, edge cases and failure states before anything goes live — 92% of defects are caught here, not by your users.",
     steps: [
       { title: "Automated test suite", desc: "AI-generated edge-case tests, reviewed and run in CI." },

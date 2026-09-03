@@ -7,6 +7,7 @@ import { ArrowUpRight, Rocket, Layers, Landmark, GraduationCap, HeartPulse, Buil
 import { PRODUCT_STEPS, INDUSTRIES, WORK, SHOWCASE, METRICS } from "@/data/emergentContent";
 import { slugify } from "@/data/detailContent";
 import { Reveal, SectionHeader, TechPill } from "./ui";
+import SmartImg from "./SmartImg";
 import { scrollToSection, useScrollSafeActive } from "@/lib/useSiteActions";
 
 const ease = [0.22, 1, 0.36, 1];
@@ -39,11 +40,21 @@ const IndustryArt = ({ visualKey, img }) => {
           was barely visible. It's now shown at full colour and much
           higher opacity, with only a light gradient at the bottom purely
           to keep the title/copy readable — plain, no icon clutter. */}
+      {/* SEO fix: this was a CSS background-image on a plain <div> —
+          SEOmator's "CSS Background Images for Content" check flags that
+          because a background-image is invisible to search engines and
+          has no alt text. It's now a real <img> (via SmartImg, so it
+          still gets WebP + explicit dimensions), absolutely positioned
+          and object-cover'd to reproduce the exact same visual. */}
       {img && (
         <>
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-[0.85] transition-opacity duration-700 group-hover:opacity-100"
-            style={{ backgroundImage: `url(${img})` }}
+          <SmartImg
+            src={img}
+            alt=""
+            width={1200}
+            height={900}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover opacity-[0.85] transition-opacity duration-700 group-hover:opacity-100"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/35 to-transparent" />
         </>
@@ -177,8 +188,7 @@ export const SelectedWork = () => {
         <Reveal>
           <Link href={`/detail/${slugify(featured.title)}`} data-testid="work-featured" className="group mb-6 block w-full text-left">
             <div className="relative aspect-[16/8] w-full overflow-hidden rounded-2xl bg-ink-800">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={featured.img} alt={featured.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
+              <SmartImg src={featured.img} alt={featured.title} width={1600} height={800} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
               <span className="absolute left-6 top-6 rounded-full bg-cm-accent px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">{featured.status}</span>
             </div>
             <div className="mt-6 grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
@@ -198,8 +208,7 @@ export const SelectedWork = () => {
             <Reveal key={p.title} delay={i * 0.1}>
               <Link href={`/detail/${slugify(p.title)}`} data-testid={`work-secondary-${i}`} className="group block w-full text-left">
                 <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-ink-800">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.img} alt={p.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
+                  <SmartImg src={p.img} alt={p.title} width={1600} height={1000} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
                   <span className="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-ink-900">{p.status}</span>
                 </div>
                 <div className="mt-5">
@@ -231,8 +240,7 @@ export const Showcase = () => (
           className="group w-[80vw] shrink-0 snap-start text-left sm:w-[440px]"
         >
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-white/10 bg-ink-800">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={p.img} alt={p.title} loading="lazy" className="h-full w-full object-cover opacity-90 transition-transform duration-700 ease-out group-hover:scale-105" />
+            <SmartImg src={p.img} alt={p.title} width={800} height={600} loading="lazy" className="h-full w-full object-cover opacity-90 transition-transform duration-700 ease-out group-hover:scale-105" />
           </div>
           <div className="mt-5">
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-cm-accent">{p.cat}</span>
