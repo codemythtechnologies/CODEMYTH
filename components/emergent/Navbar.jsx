@@ -152,6 +152,8 @@ export default function Navbar() {
                 key={group.label}
                 data-testid={`nav-${group.label.toLowerCase()}`}
                 onMouseEnter={() => setOpen(group.label)}
+                aria-haspopup="true"
+                aria-expanded={open === group.label}
                 className={`group relative px-4 py-2 text-[15px] font-medium transition-colors ${
                   dark ? "text-white hover:text-white" : "text-cm-text hover:text-cm-text"
                 }`}
@@ -364,7 +366,7 @@ export default function Navbar() {
                 </Link>
               ) : (
                 <div className="mt-8 border-t border-white/10 pt-6">
-                  <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">Signed in as</div>
+                  <div className="text-[12px] font-bold uppercase tracking-[0.15em] text-white/40">Signed in as</div>
                   <div className="mt-1 break-all text-sm text-white/70">{user.email}</div>
                   <div className="mt-4 flex flex-col gap-3 text-sm">
                     <Link href="/privacy-policy" onClick={() => setMobile(false)} className="text-left text-white/60">Privacy &amp; data</Link>
