@@ -63,6 +63,8 @@ const FaqRow = ({ item, isOpen, onToggle, index }) => (
     <button
       onClick={onToggle}
       data-testid={`faq-item-${index}`}
+      aria-expanded={isOpen}
+      aria-controls={`faq-panel-${index}`}
       className="flex w-full items-center justify-between gap-6 py-6 text-left"
     >
       <span className="font-display text-lg font-bold tracking-tight text-cm-text md:text-xl">{item.q}</span>
@@ -77,6 +79,7 @@ const FaqRow = ({ item, isOpen, onToggle, index }) => (
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
           transition={{ duration: 0.35, ease }}
+          id={`faq-panel-${index}`}
           className="overflow-hidden"
         >
           <p className="max-w-2xl pb-7 text-[15px] leading-relaxed text-cm-muted">{item.a}</p>

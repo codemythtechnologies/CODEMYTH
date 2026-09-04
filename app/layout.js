@@ -105,6 +105,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${bricolageGrotesque.variable} ${plusJakartaSans.variable}`}>
       <head>
+        {/* SEO fix: SEOmator's LCP check wants the largest-contentful-paint
+            image (the navbar logo, rendered eager+fetchpriority=high in
+            Navbar.jsx) explicitly preloaded so the browser starts
+            fetching it before it even discovers the <img> tag in the
+            DOM, rather than relying on fetchpriority alone. */}
+        <link rel="preload" as="image" href="/logo-icon.webp" fetchPriority="high" />
+        {/* SEO fix: AI/GEO "llms.txt Reference" check — the file existed
+            at /llms.txt but nothing in the HTML pointed to it. This is
+            the emerging convention (mirrors how <link rel="alternate"
+            type="application/rss+xml"> advertises a feed). */}
+        <link rel="llms.txt" href="/llms.txt" />
         <script
           type="application/ld+json"
           // eslint-disable-next-line react/no-danger

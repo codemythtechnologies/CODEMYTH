@@ -25,6 +25,17 @@ const LinkedinIcon = (props) => (
   </svg>
 );
 
+const XIcon = (props) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <path d="M18.9 2h3.3l-7.2 8.2L23.5 22h-6.6l-5.2-6.8L5.7 22H2.4l7.7-8.8L1.5 2h6.8l4.7 6.2L18.9 2Zm-1.2 18.2h1.8L7.4 3.7H5.5l12.2 16.5Z" />
+  </svg>
+);
+
+// SEO fix: the "Social Share Buttons" check needs a real page URL for
+// the share-intent links below — hardcoded here since this is a client
+// component and doesn't have access to the server-only env var.
+const SITE_URL = "https://www.codemyth.in";
+
 /* 13 — HOW WE WORK */
 export const Process = () => (
   <section id="approach" className="bg-paper px-6 py-28 md:px-12 md:py-40 lg:px-16" data-testid="process">
@@ -175,12 +186,12 @@ export const Footer = () => {
     {
       head: "Company",
       links: [
-        { label: "About", sectionId: "ai-era" },
+        { label: "About", href: "/about" },
         { label: "Work", sectionId: "work" },
         { label: "Approach", sectionId: "approach" },
         { label: "Team", sectionId: "team" },
         { label: "FAQ", sectionId: "faq" },
-        { label: "Contact", sectionId: "contact" },
+        { label: "Contact", href: "/contact" },
       ],
     },
   ];
@@ -194,7 +205,7 @@ export const Footer = () => {
               <SmartImg src="/logo-icon.png" alt="" width={910} height={333} className="h-6 w-auto" />
               <span className="flex flex-col leading-none">
                 <span className="font-display text-base font-extrabold tracking-tight text-white">CodeMyth</span>
-                <span className="mt-0.5 text-[11px] font-bold uppercase tracking-[0.28em] text-white/50">Technologies</span>
+                <span className="mt-0.5 text-[12px] font-bold uppercase tracking-[0.2em] text-white/50">Technologies</span>
               </span>
             </div>
             <p className="mt-5 max-w-xs text-sm text-white/70">Remote-first IT studio building full-stack web apps, AI products and custom software — fast, clean, production-ready.</p>
@@ -207,15 +218,15 @@ export const Footer = () => {
                 {c.links.map((l) => {
                   const label = typeof l === "string" ? l : l.label;
                   const sectionId = typeof l === "string" ? c.sectionId : l.sectionId;
+                  const realHref = typeof l === "string" ? null : l.href;
                   return (
                     <li key={label}>
-                      <a
-                        href={`#${sectionId}`}
-                        onClick={(e) => { e.preventDefault(); scrollToSection(sectionId); }}
+                      <Link
+                        href={realHref || `/#${sectionId}`}
                         className="text-left text-sm text-white/60 transition-colors hover:text-cm-accent"
                       >
                         {label}
-                      </a>
+                      </Link>
                     </li>
                   );
                 })}
@@ -232,10 +243,39 @@ export const Footer = () => {
           </div>
         </div>
         <div className="flex flex-col items-start justify-between gap-4 pt-8 md:flex-row md:items-center">
-          <p className="text-sm text-white/40">© {new Date().getFullYear()} CodeMyth Technologies. All rights reserved.</p>
-          <div className="flex gap-6 text-sm text-white/40">
+          <p className="text-sm text-white/40">
+            © {new Date().getFullYear()} CodeMyth Technologies. All rights reserved. · Page last updated{" "}
+            <time dateTime="2026-09-03">3 September 2026</time>
+          </p>
+          <div className="flex items-center gap-6 text-sm text-white/40">
             <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link>
+            {/* SEO fix: SEOmator's "Social Share Buttons" check — no share
+                links existed anywhere on the page. These are real,
+                pre-filled share-intent hrefs (work with JS disabled),
+                not JS-only share-sheet buttons. */}
+            <span className="flex items-center gap-3 border-l border-white/15 pl-6">
+              <a
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(SITE_URL)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Share on LinkedIn"
+                className="text-white/40 transition-colors hover:text-cm-accent"
+              >
+                <span className="sr-only">Share on LinkedIn</span>
+                <LinkedinIcon className="h-4 w-4" aria-hidden="true" />
+              </a>
+              <a
+                href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(SITE_URL)}&text=${encodeURIComponent("Code Myth Technologies — full-stack & AI software studio")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Share on X"
+                className="text-white/40 transition-colors hover:text-cm-accent"
+              >
+                <span className="sr-only">Share on X</span>
+                <XIcon className="h-4 w-4" aria-hidden="true" />
+              </a>
+            </span>
           </div>
         </div>
       </div>

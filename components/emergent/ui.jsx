@@ -134,7 +134,7 @@ export const SectionHeader = ({ eyebrow, title, dark = false, align = "left", cl
 
 export const TechPill = ({ children, dark = false }) => (
   <span
-    className={`inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-bold uppercase tracking-wider ${
+    className={`inline-flex items-center rounded-full border px-3 py-1 text-[12px] font-bold uppercase tracking-wide ${
       dark ? "border-white/15 text-white/60" : "border-cm-border text-cm-muted"
     }`}
   >

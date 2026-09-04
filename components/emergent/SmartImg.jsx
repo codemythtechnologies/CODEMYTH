@@ -11,6 +11,19 @@
 // the source CDN for one directly via its own `fm=webp` format param —
 // both Unsplash's and Pexels' image CDNs support this — and still emit
 // explicit width/height.
+// SEO fix: SEOmator flagged (a) 22 images missing explicit width/height,
+// (b) all local images being legacy PNG/JPG, and (c) DOM size being over
+// budget. Originally this used a <picture><source webp>+<img png> pair,
+// but the audit's "Modern Image Formats" check inspects the <img src>
+// itself (the fallback), not the sibling <source>, so it still counted
+// as "legacy" — and the wrapper added an extra DOM node per image.
+// WebP has near-universal browser support today, so we now serve it
+// directly as the only src (no fallback needed), which fixes both the
+// format check and trims DOM size back down.
+function localWebp(src) {
+  return src.replace(/\.(png|jpe?g)$/i, ".webp");
+}
+
 function withRemoteWebp(src) {
   if (!/^https?:\/\//.test(src)) return src;
   const isImageCdn = /images\.unsplash\.com|images\.pexels\.com/.test(src);
@@ -25,41 +38,23 @@ function withRemoteWebp(src) {
   return src.includes("?") ? `${src}&fm=webp` : `${src}?fm=webp`;
 }
 
-export default function SmartImg({ src, alt, width, height, className, loading = "lazy", fetchPriority, ...rest }) {
+export default function SmartImg({ src, alt, width, height, className, loading = "lazy", fetchPriority, srcSet, sizes, ...rest }) {
   const isRemote = /^https?:\/\//.test(src);
-
-  if (isRemote) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={withRemoteWebp(src)}
-        alt={alt}
-        width={width}
-        height={height}
-        loading={loading}
-        fetchPriority={fetchPriority}
-        className={className}
-        {...rest}
-      />
-    );
-  }
-
-  const webpSrc = src.replace(/\.(png|jpe?g)$/i, ".webp");
+  const finalSrc = isRemote ? withRemoteWebp(src) : localWebp(src);
 
   return (
-    <picture>
-      <source srcSet={webpSrc} type="image/webp" />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        loading={loading}
-        fetchPriority={fetchPriority}
-        className={className}
-        {...rest}
-      />
-    </picture>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={finalSrc}
+      srcSet={srcSet}
+      sizes={sizes}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+      fetchPriority={fetchPriority}
+      className={className}
+      {...rest}
+    />
   );
 }

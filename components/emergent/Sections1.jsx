@@ -102,7 +102,8 @@ export const Capabilities = () => {
                     </motion.div>
                   </div>
                   <Link href={`/detail/${slugify(c.title)}`} aria-label={`Full details on ${c.title}`} className="hidden md:block">
-                    <ArrowUpRight className="h-8 w-8 text-cm-text transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-cm-accent" />
+                    <span className="sr-only">{`Full details on ${c.title}`}</span>
+                    <ArrowUpRight className="h-8 w-8 text-cm-text transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-cm-accent" aria-hidden="true" />
                   </Link>
                 </div>
               </motion.div>
@@ -145,7 +146,7 @@ export const AIEngineering = () => (
                 transition={{ duration: 0.5, delay: i * 0.08, ease }}
                 className="group flex flex-col items-center gap-3"
               >
-                <span className="flex h-14 min-w-[56px] items-center justify-center rounded-xl border border-white/15 bg-ink-800 px-3 font-display text-[11px] font-bold tracking-wide text-white/70 transition-colors group-hover:border-cm-accent group-hover:text-white md:h-16 md:min-w-[64px] md:px-4 md:text-xs whitespace-nowrap">
+                <span className="flex h-14 min-w-[56px] items-center justify-center rounded-xl border border-white/15 bg-ink-800 px-3 font-display text-[12px] font-bold tracking-wide text-white/70 transition-colors group-hover:border-cm-accent group-hover:text-white md:h-16 md:min-w-[64px] md:px-4 md:text-xs whitespace-nowrap">
                   {step}
                 </span>
               </motion.div>

@@ -13,6 +13,20 @@ import { scrollToSection, useScrollSafeActive } from "@/lib/useSiteActions";
 const ease = [0.22, 1, 0.36, 1];
 const goContact = () => scrollToSection("contact");
 
+// SEO fix: SEOmator's "Responsive Images (srcset)" check — a smaller
+// 800w WebP variant exists for the two locally-hosted project
+// screenshots (renaissance/stupid-studios; see /public/assets/projects),
+// so we can offer the browser a genuinely smaller file on narrow
+// viewports instead of always downloading the full-width original.
+// Remote (Unsplash) images already come from a CDN that does its own
+// responsive negotiation, so this only applies to local paths.
+function projectSrcSet(img) {
+  if (!img || !img.startsWith("/assets/projects/")) return undefined;
+  const small = img.replace(/\.(png|jpe?g)$/i, "-800w.webp");
+  const full = img.replace(/\.(png|jpe?g)$/i, ".webp");
+  return `${small} 800w, ${full} 1600w`;
+}
+
 // Each industry gets its own icon + accent gradient so the preview panel
 // (and the row itself) are visually distinct instead of six identical dark
 // cards that only differ by number.
@@ -140,7 +154,8 @@ export const Industries = () => {
                       </motion.div>
                     </div>
                     <Link href={`/detail/${slugify(ind.title)}`} aria-label={`Full details on ${ind.title}`}>
-                      <ArrowUpRight className="h-6 w-6 text-white/30 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-cm-accent" />
+                      <span className="sr-only">{`Full details on ${ind.title}`}</span>
+                      <ArrowUpRight className="h-6 w-6 text-white/30 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-cm-accent" aria-hidden="true" />
                     </Link>
                   </div>
                 </div>
@@ -188,7 +203,7 @@ export const SelectedWork = () => {
         <Reveal>
           <Link href={`/detail/${slugify(featured.title)}`} data-testid="work-featured" className="group mb-6 block w-full text-left">
             <div className="relative aspect-[16/8] w-full overflow-hidden rounded-2xl bg-ink-800">
-              <SmartImg src={featured.img} alt={featured.title} width={1600} height={800} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
+              <SmartImg src={featured.img} alt={featured.title} width={1600} height={800} loading="lazy" srcSet={projectSrcSet(featured.img)} sizes="(max-width: 768px) 100vw, 1200px" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
               <span className="absolute left-6 top-6 rounded-full bg-cm-accent px-3 py-1 text-xs font-bold uppercase tracking-wider text-white">{featured.status}</span>
             </div>
             <div className="mt-6 grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
@@ -208,7 +223,7 @@ export const SelectedWork = () => {
             <Reveal key={p.title} delay={i * 0.1}>
               <Link href={`/detail/${slugify(p.title)}`} data-testid={`work-secondary-${i}`} className="group block w-full text-left">
                 <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-ink-800">
-                  <SmartImg src={p.img} alt={p.title} width={1600} height={1000} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
+                  <SmartImg src={p.img} alt={p.title} width={1600} height={1000} loading="lazy" srcSet={projectSrcSet(p.img)} sizes="(max-width: 768px) 100vw, 600px" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
                   <span className="absolute left-5 top-5 rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-ink-900">{p.status}</span>
                 </div>
                 <div className="mt-5">
