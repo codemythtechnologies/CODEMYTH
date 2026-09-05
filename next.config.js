@@ -9,11 +9,16 @@
 // app/layout.js is moved to an external file.
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+  // apis.google.com + www.gstatic.com serve the gapi/reCAPTCHA loader scripts
+  // that Firebase Auth's popup sign-in (Google/GitHub) depends on internally.
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://apis.google.com https://www.gstatic.com",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://identitytoolkit.googleapis.com",
+  "connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://identitytoolkit.googleapis.com https://apis.google.com https://accounts.google.com",
+  // Needed for the hidden gapi relay iframe and the Firebase auth handler
+  // page (<project>.firebaseapp.com) that signInWithPopup() opens.
+  "frame-src 'self' https://apis.google.com https://accounts.google.com https://*.firebaseapp.com https://*.web.app",
   "frame-ancestors 'none'",
   "object-src 'none'",
   "base-uri 'self'",
